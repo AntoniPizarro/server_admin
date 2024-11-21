@@ -1,0 +1,6 @@
+(1) En el spawn deben aparecer carteles de información para que el jugador sepa que hacer.
+(2) Colocar en el spawn un bloque de comandos que añada a un scoreboard llamado online 1 punto.
+(3) Colocar en el spawn un bloque de comandos que comprueba que el scoreboard tiene mas de 0 puntos.
+(4) El jugador debe entrar en la web y checkear que ha sido registrado (se añadira a base de datos).
+(5) Transportar al jugador a la villa.
+(6) Se le asignarán los valores por defecto de todos los scoreboards necesarios en el servidor (dinero, muertes,...).
