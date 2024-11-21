@@ -1,0 +1,18 @@
+{
+    "type" : "pendejos_pack:board",
+    "generator" : {
+        "type" : "minecraft:flat",
+        "settings": {
+            "layers": [
+                {
+                    "height": 10,
+                    "block": "minecraft:dirt"
+                },
+                {
+                    "height": 1,
+                    "block": "minecraft:grass_block"
+                }
+            ]
+        }
+    }
+}
