@@ -413,7 +413,7 @@ class Store:
         """
         Comprueba si la tienda tiene un item.
         """
-        return item in self.get_items()
+        return item in self.get_items() or item.get_id() in [store_item.get_id() for store_item in self.get_items()]
 
     def add_item(self, new_item: Store_Item) -> None:
         """
