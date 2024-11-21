@@ -125,7 +125,7 @@ class RCON:
         
         return cmd_1 + "\n\n" + cmd_2
 
-    def falling_chest(self, player: str, items: list=None):
+    def supply_chest(self, player: str, items: list=None):
         '''
         Invoca un cofre que cae del cielo con items sobre un jugador.
         '''
