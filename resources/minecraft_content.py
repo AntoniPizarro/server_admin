@@ -1003,10 +1003,10 @@ sounds = {
     ]
 }
 
-default_char_width = 5
+DEFAULT_CHAR_WIDTH = 5
 
 # Las claves son los códigos ASCII
-char_width = {
+CHAR_WIDTH = {
     32 : 3,
     33 : 1,
     34 : 3,
