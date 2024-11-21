@@ -13,45 +13,33 @@ API_PORT = 5500
 @app.route("/", methods=["GET"])
 def home():
     '''
-    'Página inicial.
+    Página inicial.
     '''
     return render_template("index.html")
-
-@app.route("/test", methods=["GET"])
-def testttt():
-    '''
-    'Página inicial.
-    '''
-    return render_template("test.html")
 
 @app.route("/installer", methods=["GET"])
 def installer():
     '''
-    'Página del tutorial sobre el instalador.
+    Página del tutorial sobre el instalador.
     '''
     return render_template("installer.html")
 
 @app.route("/store", methods=["GET"])
 def store():
     '''
-    'Página de la tienda.
+    Página de la tienda.
     '''
     return render_template("store.html")
 
 #POST
-@app.route("/api/skins/set/<password>", methods=["POST"])
-def API_set_skin(password):
+@app.route("/api/test", methods=["POST"])
+def API_test():
     '''
-    'Asignar skin a un jugador
+    Método para pruebas
     '''
-    cant_set_skin = [""]
-    
     data = request.get_json()
-    res = False
-    if password == "avellana9-":
-        res = set_player_skin(data["player"], data["skin_url"]) not in cant_set_skin
     
-    return jsonify({"skin" : res})
+    return jsonify({"tes" : data})
 
 if __name__ == "__main__":
     app.run(host=API_HOST, debug=True, port=API_PORT)
