@@ -1,8 +1,6 @@
-from pprint import pprint
-
 from .minecraft_content import CHAR_WIDTH, DEFAULT_CHAR_WIDTH
 
-def generate_written_book(author: str, text: str):
+def generate_written_book(author: str, title: str, text: str):
     """
     Filas: 14 por página.
     Píxeles: 114 por fila.
@@ -62,6 +60,5 @@ def generate_written_book(author: str, text: str):
     
     pages = new_pages
 
-    pprint(pages)
     pages_json_text = f"['{str([page for page in pages]).replace("'", "\"")}']"
-    return pages_json_text
+    return "minecraft:written_book{resolved:true,generation:0,author:\"" + author + "\",title:\"" + title + "\",pages:" + pages_json_text + "}"
