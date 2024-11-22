@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from .minecraft_content import CHAR_WIDTH, DEFAULT_CHAR_WIDTH
 
 def generate_written_book(author: str, text: str):
@@ -6,14 +8,14 @@ def generate_written_book(author: str, text: str):
     Píxeles: 114 por fila.
 
     EJ:
-        minecraft:written_book{resolved:true,generation:0,author:"<autor>",title:"",pages['[[""]],[[""]]']}
+        minecraft:written_book{resolved:true,generation:0,author:"<autor>",title:"",pages:['[[""]],[[""]]']}
     """
-    def get_pixels(word: str):
+    def get_pixels(text: str):
         """
-        Devuelve los píxeles que ocupa una palabra. Se tienen en cuenta las separaciones entre letras.
+        Devuelve los píxeles que ocupa un texto. Se tienen en cuenta la separación entre caracteres.
         """
         pixels = 0
-        for char in word:
+        for char in text:
             if ord(char) not in CHAR_WIDTH:
                 pixels += DEFAULT_CHAR_WIDTH + 1
             else:
@@ -30,27 +32,36 @@ def generate_written_book(author: str, text: str):
     rows = []
     row_words = []
     pixels = 0
-    
-    # Recorreremos el texto palabra por palabra
-    for word in text.split():
-        # Obtenemos los píxeles que ocupa cada palabra
-        pixels += get_pixels(word)
-        row_words.append(word)
 
-        if pixels + (len(row_words) - 1) * CHAR_WIDTH[ord(" ")] > MAX_PIXELS:
-            new_row = row_words[:-1]
-            rows.append(new_row)
-            row_words = row_words[-1:]
-            pixels = get_pixels(row_words[0])
-        
-    rows.append(new_row)
-    pages = [[] * int(len(rows) / MAX_ROWS)]
-    for page in pages:
-        while len(page) < MAX_ROWS or not rows:
-            print(rows)
-            page.append(rows.pop(0))
+    for word in text.split():
+        pixels += get_pixels(word)
+        if pixels + get_pixels(" ") < MAX_PIXELS:
+            pixels += get_pixels(" ")
+            row_words.append(word)
+        else:
+            rows.append(row_words.copy())
+            row_words = [word]
+            pixels = get_pixels(word)
+
+            if pixels + get_pixels(" ") < MAX_PIXELS:
+                pixels += get_pixels(" ")
     
-    print("Autor: " + author)
+    rows.append(row_words.copy())
+    pages = []
+    while len(rows) / MAX_ROWS > 1:
+        pages.append(rows[:MAX_ROWS].copy())
+        rows = rows[MAX_ROWS:]
+    pages.append(rows.copy())
+
+    new_pages = []
     for page in pages:
+        new_page = []
         for row in page:
-            print(row)
+            new_page.append(" ".join(row))
+        new_pages.append(new_page.copy())
+    
+    pages = new_pages
+
+    pprint(pages)
+    pages_json_text = f"['{str([page for page in pages]).replace("'", "\"")}']"
+    return pages_json_text
