@@ -3,18 +3,17 @@
     --color-2: #6bbe41;
     --color-3: #7a542e;
 
-    --color-inventory-bg: #c6c6c6;
-    --color-inventory-border-1: #ffffff;
-    --color-inventory-border-2: #555555;
-    --color-inventory-slot-bg: #8b8b8b;
-    --color-inventory-slot-border-1: #373737;
-    --color-inventory-slot-border-2: #ffffff;
+    --color-mc-gui-btn: #6E6E6E;
+    --color-mc-gui-btn-hover: #7A84B9;
+    --color-mc-gui-btn-hover-txt: #E3F1C7;
+    --color-mc-gui-border-1: #A8ACA8;
+    --color-mc-gui-border-2: #525451;
 
     --color-text-1: #ffffff;
 }
 
 @font-face {
-    font-family: minecraft;
+    font-family: mc-font;
     src: url("./assets/fonts/MinecraftRegular-Bmg3.otf");
 }
 
@@ -27,7 +26,7 @@ h3 {
 body {
     background-color: var(--color-2);
     color: var(--color-text-1);
-    font-family: minecraft;
+    font-family: mc-font;
     padding: 0;
     margin: 0;
     background-color: var(--color-3);
@@ -45,162 +44,43 @@ header img {
     height: 150px;
 }
 
-.section {
+.content {
     width: 80%;
     margin: auto;
-    margin-top: 100px;
-}
-
-#skins {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.skin-card {
-    margin: 50px;
     padding: 10px;
 }
 
-a {
-    color: var(--color-text-1);
-}
-
-.server-admin {
-    font-weight: lighter;
-    color: var(--color-2);
-}
-
-.sales-suggestion,
-.store {
-    width: 80%;
-    margin: auto;
-}
-
-.item {
-    border: 3px solid;
-    border-radius: 5px;
-    background-color: var(--color-inventory-bg);
-    border-top-color: var(--color-inventory-border-1);
-    border-left-color: var(--color-inventory-border-1);
-    border-bottom-color: var(--color-inventory-border-2);
-    border-right-color: var(--color-inventory-border-2);
-    background-color: #adadad;
-    width: 140px;
-    height: 180px;
-    display: grid;
-    grid-template-rows: 40% auto;
-}
-
-.item-summary {
-    text-align: center;
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-}
-
-.item-summary-slot p {
-    margin: 0;
-}
-
-.item-prices {
-    margin: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    overflow-y: scroll;
-    background-color: var(--color-4);
-}
-
-.store-list {
-    display: flex;
-    border: 1px solid;
-    padding: 10px;
-    background-color: var(--color-1);
-}
-
-.item-slot {
-    margin: auto;
-    position: static;
-    width: 32px;
-    height: 32px;
-    border: 2px solid;
-    background-color: var(--color-inventory-slot-bg);
-    border-top-color: var(--color-inventory-slot-border-1);
-    border-left-color: var(--color-inventory-slot-border-1);
-    border-bottom-color: var(--color-inventory-slot-border-2);
-    border-right-color: var(--color-inventory-slot-border-2);
-    font-size: 13px;
-    font-weight: lighter;
-}
-
-.item-slot img {
-    width: 32px;
-    height: 32px;
-}
-
-.bottom-right {
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    bottom: 0px;
-    right: 2px;
-    color: rgb(255, 255, 255);
-}
-
-.sales-suggestion {
-    display: flex;
-    align-items: center;
-    justify-content: right;
-}
-
-.input-component {
+.component-buttoneer {
     display: flex;
     flex-direction: column;
-    max-height: 90px;
-    margin: 5px;
 }
 
-.input-component input {
-    font-size: 30px;
-    outline: none;
-    font-family: minecraft;
-    color: var(--color-text-1);
-    font-weight: lighter;
+#buttoneer-main {
+    width: 30%;
+    margin: auto;
 }
 
-.input-component input[type=text],
-.input-component input[type=number] {
-    background-color: var(--color-inventory-slot-bg);
-    border-top-color: var(--color-inventory-slot-border-1);
-    border-left-color: var(--color-inventory-slot-border-1);
-    border-bottom-color: var(--color-inventory-slot-border-2);
-    border-right-color: var(--color-inventory-slot-border-2);
-    height: 32px;
+.mc-button {
+    font-family: mc-font;
+    background-color: var(--color-mc-gui-btn);
+    height: 50px;
+    color: white;
+    font-size: 20px;
+    border-bottom: 3px solid var(--color-mc-gui-border-2);
+    border-right: 3px solid var(--color-mc-gui-border-2);
+    border-top: 3px solid var(--color-mc-gui-border-1);
+    border-left: 3px solid var(--color-mc-gui-border-1);
+    margin: 10px;
 }
 
-.input-component input[type=image] {
-    height: 32px;
+.mc-button:hover {
+    background-color: var(--color-mc-gui-btn-hover);
+    color: var(--color-mc-gui-btn-hover-txt);
 }
 
-.input-component input[type=button] {
-    background-color: var(--color-inventory-slot-bg);
-    border-top-color: var(--color-inventory-slot-border-2);
-    border-left-color: var(--color-inventory-slot-border-2);
-    border-bottom-color: var(--color-inventory-slot-border-1);
-    border-right-color: var(--color-inventory-slot-border-1);
-    height: 55px;
-}
-
-.input-component input[type=button]:active {
-    border-top-color: var(--color-inventory-slot-border-1);
-    border-left-color: var(--color-inventory-slot-border-1);
-    border-bottom-color: var(--color-inventory-slot-border-2);
-    border-right-color: var(--color-inventory-slot-border-2);
-}
-
-#input-quantity {
-    width: 80px;
-}
-
-#input-price {
-    width: 150px;
+.mc-button:active {
+    border-bottom: 3px solid var(--color-mc-gui-border-1);
+    border-right: 3px solid var(--color-mc-gui-border-1);
+    border-top: 3px solid var(--color-mc-gui-border-2);
+    border-left: 3px solid var(--color-mc-gui-border-2);
 }

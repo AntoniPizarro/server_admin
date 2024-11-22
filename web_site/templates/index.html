@@ -3,41 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Server molón</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/logo.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Minazon</title>
+    <!-- <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/logo.ico') }}" type="image/x-icon"> -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+    <link rel="shortcut icon" href="../static/assets/images/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
     <header>
-        <img src="{{ url_for('static', filename='assets/images/logo.png') }}" alt="Logo">
-        <h1>Servidor del dios todopoderoso Granpepinillo</h1>
-        <h2>eu7162534.g-portal.game</h2>
+        <!-- <img src="{{ url_for('static', filename='assets/images/logo.png') }}" alt="Logo"> -->
+        <img src="../static/assets/images/logo.png" alt="Logo">
+        <h1>Minazon</h1>
     </header>
     <div class="content">
-        <div class="section">
-            <h2>Contenido descargable</h2>
-            <ul>
-                <li><a href="{{ url_for('static', filename='assets/Minecraft Launcher.exe') }}">Launcher pirata de Minecraft</a></li>
-                <li>Archivos necesarios para jugar:</li>
-                <ul>
-                    <li><a href="{{ url_for('static', filename='assets/mods_forge_20241113.rar') }}">Instalador de mods</a> - <a href="./installer" target="_blank">(tutorial)</a></li>
-                </ul>
-            </ul>
-        </div>
-        <div class="section">
-            <h2>Skins disponibles</h2>
-            <p>Lista de algunas de las skins utilizadas</p>
-            <div id="skins">
-                <div class="skin-card">
-                    <img src="{{ url_for('static', filename='assets/images/skin_3_view.png') }}" alt="Visualización de Skin">
-                    <ul>
-                        <li>Usada por:</li>
-                        <ul>
-                            <li>ArySK</li>
-                        </ul>
-                    </ul>
-                </div>
-            </div>
+        <p>Bienvenido a Minazon, el único servicio de paquetería para Minecraft del mundo. Compra en la tienda online y recíbelo en tu mundo de Minecraft.</p>
+        <div class="component-buttoneer" id="buttoneer-main">
+            <input class="mc-button" id="mc-button-store" type="button" value="Tienda">
+            <input class="mc-button" id="mc-button-money" type="button" value="Descubre el Leti">
         </div>
     </div>
 </body>

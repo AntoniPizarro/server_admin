@@ -4,110 +4,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Server molón</title>
-    <link rel="shortcut icon" href="../static/assets/images/logo.ico" type="image/x-icon">
+    <title>Minazon</title>
     <!-- <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/logo.ico') }}" type="image/x-icon"> -->
-    <link rel="stylesheet" href="../static/style.css">
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='store.css') }}"> -->
+    <link rel="shortcut icon" href="../static/assets/images/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/store.css">
 </head>
 
 <body>
-    <div class="">
-        <img src="../static/assets/images/logo.png" alt="">
-    </div>
     <header>
-        <img src="../static/assets/images/logo.png" alt="Logo">
         <!-- <img src="{{ url_for('static', filename='assets/images/logo.png') }}" alt="Logo"> -->
-        <h1>Servidor del dios todopoderoso Granpepinillo</h1>
-        <h2>eu6596314.g-portal.game</h2>
+        <img src="../static/assets/images/logo.png" alt="Logo">
+        <h1>Minazon</h1>
     </header>
     <div class="content">
-        <div class="sales-suggestion">
-            <div class="input-component">
-                <label for="input-product">Producto</label>
-                <div class="item-slot">
-                    <input type="image" name="input-product" src="../static/assets/images/unseen_notification.png" alt="">
-                </div>
-                <!-- <input type="image" src="{{ url_for('static', filename='assets/images/apple.png') }}" alt=""> -->
-            </div>
-            <div class="input-component">
-                <label for="input-quantity">Cantidad</label>
-                <input type="number" name="input-quantity" id="input-quantity" min="1" value="1">
-            </div>
-            <div class="input-component">
-                <label for="input-price">Precio</label>
-                <input type="number" name="input-price" id="input-price" min="1" value="10">
-            </div>
-            <div class="input-component">
-                <input type="button" value="Sugerir" id="input-suggest">
-            </div>
-        </div>
         <div class="store">
-            <h3>Lista de ventas ya creadas</h3>
-            <div class="store-list">
+            <div class="store-section" id="store-section-cathegories">
+                <p>Sección de categorias</p>
+            </div>
+            <div class="store-section" id="store-section-filter">
+                <p>Sección de filtros</p>
+            </div>
+            <div class="store-section" id="store-section-items">
                 <div class="item">
-                    <div class="item-summary">
-                        <div class="item-summary-slot">
-                            <div class="item-slot">
-                                <img src="../static/assets/images/apple.png" alt="">
-                                <!-- <img src="{{ url_for('static', filename='assets/images/apple.png') }}" alt=""> -->
-                                <div class="bottom-right">1</div>
-                            </div>
-                            <p>Manzana</p>
+                    <div class="item-icons">
+                        <div class="item-icon">
+                            <img src="../static/assets/images/diamond.png" alt="">
+                            <div class="item-ammount">1</div>
+                        </div>
+                        <div class="item-icon">
+                            <img src="../static/assets/images/apple.png" alt="">
+                            <div class="item-ammount">10</div>
                         </div>
                     </div>
-                    <div class="item-prices">
-                        <div class="item-price">
-                            <div class="item-slot">
-                                <img src="../static/assets/images/coins/coin_1.png" alt="">
-                                <!-- <img src="{{ url_for('static', filename='assets/images/coins/coin_1.png') }}" alt=""> -->
-                                <div class="bottom-right">4</div>
-                            </div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-slot">
-                                <img src="../static/assets/images/coins/coin_5.png" alt="">
-                                <!-- <img src="{{ url_for('static', filename='assets/images/coins/coin_5.png') }}" alt=""> -->
-                                <div class="bottom-right">1</div>
-                            </div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-slot">
-                                <img src="../static/assets/images/coins/coin_10.png" alt="">
-                                <!-- <img src="{{ url_for('static', filename='assets/images/coins/coin_20.png') }}" alt=""> -->
-                                <div class="bottom-right">1</div>
-                            </div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-slot">
-                                <img src="../static/assets/images/coins/coin_20.png" alt="">
-                                <!-- <img src="{{ url_for('static', filename='assets/images/coins/coin_20.png') }}" alt=""> -->
-                                <div class="bottom-right">64</div>
-                            </div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-slot">
-                                <img src="../static/assets/images/coins/coin_50.png" alt="">
-                                <!-- <img src="{{ url_for('static', filename='assets/images/coins/coin_20.png') }}" alt=""> -->
-                                <div class="bottom-right">1</div>
-                            </div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-slot">
-                                <img src="../static/assets/images/coins/coin_100.png" alt="">
-                                <!-- <img src="{{ url_for('static', filename='assets/images/coins/coin_20.png') }}" alt=""> -->
-                                <div class="bottom-right">16</div>
-                            </div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-slot">
-                                <img src="../static/assets/images/coins/coin_500.png" alt="">
-                                <!-- <img src="{{ url_for('static', filename='assets/images/coins/coin_20.png') }}" alt=""> -->
-                                <div class="bottom-right">32</div>
-                            </div>
-                        </div>
+                    <div class="item-data">
+                        <p class="item-data-name">PACK: Diamante + Manzanas</p>
+                        <h3 class="item-data-price">70 §</h3>
+                    </div>
+                    <div class="item-actions">
+                        <input class="mc-button" type="button" value="Añadir al carro">
                     </div>
                 </div>
+                <div class="item">
+                    <div class="item-icons">
+                        <div class="item-icon">
+                            <img src="../static/assets/images/diamond.png" alt="">
+                            <div class="item-ammount">5</div>
+                        </div>
+                    </div>
+                    <div class="item-data">
+                        <p class="item-data-name">Diamantes x5</p>
+                        <h3 class="item-data-price">300 §</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="store-section" id="store-section-top-sales">
+                <p>Sección de lo más vendido</p>
             </div>
         </div>
     </div>
