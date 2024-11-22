@@ -1,3 +1,8 @@
+from datetime import datetime
+
+def time_stamp(date_time_format: datetime):
+    return f"[{str(date_time_format.date()).replace('-', '/')} {date_time_format.time().hour}:{date_time_format.time().minute}:{date_time_format.time().second}]"
+
 def minutes_to_seconds(minutes):
     return minutes * 60
 
