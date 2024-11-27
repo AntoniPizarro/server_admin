@@ -135,8 +135,31 @@ class RCON:
         
         height = 100
         fireworks_time = (height / 2) * 1.20
-        print(r'/give ' + player + ' pig_spawn_egg{EntityTag:{id:"falling_block",BlockState:{Name:"minecraft:chest"},TileEntityData:{Items:[' + ",".join(items) + ']},DropItem:1,Motion:[0.0d,0.1d,0.0d]}}')
-        return self.command_response(r'/give ' + player + ' pig_spawn_egg{EntityTag:{id:"falling_block",BlockState:{Name:"minecraft:chest"},TileEntityData:{Items:[' + ",".join(items) + ']},DropItem:1,Motion:[0.0d,0.1d,0.0d]}}')
+        #print(r'/give ' + player + ' minecraft:ender_dragon_spawn_egg{EntityTag:{id:"falling_block",BlockState:{Name:"minecraft:chest"},TileEntityData:{Items:[' + ",".join(items) + ']},DropItem:1,Motion:[0.0d,0.1d,0.0d]}}')
+        #return self.command_response(r'/give ' + player + ' minecraft:ender_dragon_spawn_egg{EntityTag:{id:"falling_block",BlockState:{Name:"minecraft:chest"},TileEntityData:{Items:[' + ",".join(items) + ']},DropItem:1,Motion:[0.0d,0.1d,0.0d]}}')
+        
+        return self.command_response(r'/execute at ' + player + ' run summon falling_block ~ ~1 ~ {BlockState:{Name:"minecraft:chest"},TileEntityData:{Items:[' + ",".join(items) + ']},DropItem:1,Motion:[0.0d,0.1d,0.0d]}')
+
+    def xp(self, target: str, ammount, action: str="add", xp_type: str="points"):
+        """
+        Añade experiencia a un jugador.
+            actions: add, set, query
+            xp_type: points, levels
+        """
+        if action not in ["add", "set", "query"]:
+            action = "add"
+            
+        if xp_type not in ["points", "levels"]:
+            xp_type = "points"
+        
+        command = f"/xp {action} {target}"
+        
+        if action != "query":
+            command += f" {ammount}"
+        
+        command += f" {xp_type}"
+        
+        return self.command_response(command)
 
 # IN DEV
 def enchant_specific_slot(player_name, slot, enchant_id, lvl):
