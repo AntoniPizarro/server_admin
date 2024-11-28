@@ -68,6 +68,6 @@ def generate_written_book(author: str, title: str, text: str):
             new_page.append(" ".join(row))
         new_pages.append(new_page.copy())
     
-    pages_json_text = f"['{str([page for page in new_pages]).replace("'", "\"")}']"
+    pages_json_text = ""#f"['{str([page for page in new_pages]).replace("'", "\"")}']"
 
     return "minecraft:written_book{resolved:true,generation:0,author:\"" + author + "\",title:\"" + title + "\",pages:" + pages_json_text + "}"
