@@ -12,9 +12,15 @@ if __name__ == "__main__":
         server_rcon_psw="LHga0WuD",
     )
     
-    #print(rcon_1.playsound_anywhere("minecraft:entity.ender_dragon.ambient"))
-    print(rcon_1.xp("atlasmmc", 0, "query"))
-    print(rcon_1.xp("atlasmmc", 9999, "add", "points"))
-    print(rcon_1.xp("atlasmmc", 0, "query"))
+    store_1 = MC_Store(
+        name="Tienda Test",
+        description="Tienda para realizar pruebas",
+        owner="granpepinillo",
+        items=[],
+        money=0,
+        rcon=rcon_1
+    )
     
-    print(rcon_1.xp("atlasmmc", 28, "set", "points"))
+    print(rcon_1.playsound_anywhere("minecraft:entity.ender_dragon.death"))
+    #print("=======================================================")
+    #print(rcon_1.command_response("/data get block -3565 86 -702"))

@@ -21,7 +21,7 @@ if __name__ == "__main__":
     TIME_COUNT_MAX = 5
     time_count = ADVISE_1
     
-    SEGUNDOS_CICLO = minutes_to_seconds(1)
+    SEGUNDOS_CICLO = minutes_to_seconds(10)
 
     print(f"{time_stamp(datetime.now())} -> START")
     print(rcon_1.kill_items())

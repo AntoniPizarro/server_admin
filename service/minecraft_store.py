@@ -222,10 +222,12 @@ class MC_Store(Store):
         money,
         unlimited_money=True,
         money_symbology=MONEY_SYMBOL,
+        rcon: RCON=None
     ):
         super().__init__(
             name, description, owner, items, money, unlimited_money, money_symbology
         )
+        self.rcon = rcon
 
     def give_money(self, player: str, ammount: int = 1):
         """
