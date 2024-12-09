@@ -17,13 +17,6 @@ def home():
     '''
     return render_template("index.html")
 
-@app.route("/installer", methods=["GET"])
-def installer():
-    '''
-    Página del tutorial sobre el instalador.
-    '''
-    return render_template("installer.html")
-
 @app.route("/store", methods=["GET"])
 def store():
     '''

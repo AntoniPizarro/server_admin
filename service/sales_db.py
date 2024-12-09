@@ -1,0 +1,1 @@
+# Falta implementar la gestión de las compras o pedidos realizados para que se guarden en base de datos

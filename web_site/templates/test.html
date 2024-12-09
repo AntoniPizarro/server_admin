@@ -1,67 +1,126 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <style>
+        :root {
+            --font-main: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        body {
+            background-color: rgb(36, 36, 36);
+            color: white;
+            font-family: var(--font-main);
+        }
+
+        .method-type-test {
+            width: 30%;
+        }
+
+        .method-type-test input[type=button] {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            width: 95%;
+            min-height: 40px;
+            font-family: var(--font-main);
+            font-size: 17px;
+            text-wrap: wrap;
+            background-color: #636363;
+            color: #c3c3c3;
+        }
+
+        .method-type-test input[type=text] {
+            padding: 5px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+            width: 90%;
+            height: 20px;
+            font-family: var(--font-main);
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="item" style="margin: auto; margin-top: 100px;">
-        <div class="item-summary">
-            <div class="item-summary-slot">
-                <div class="item-slot">
-                    <img src="../static/assets/images/apple.png" alt="">
-                    <div class="bottom-right">1</div>
-                </div>
-                <p>Manzana</p>
-            </div>
+    <div class="method-type">
+        <h1>GET</h1>
+        <div class="method-type-test">
+            <input type="button" value="Lista completa de items" id="all-items">
         </div>
-        <div class="item-prices">
-            <div class="item-price">
-                <div class="item-slot">
-                    <img src="../static/assets/images/coins/coin_1.png" alt="">
-                    <div class="bottom-right">4</div>
-                </div>
-            </div>
-            <div class="item-price">
-                <div class="item-slot">
-                    <img src="../static/assets/images/coins/coin_5.png" alt="">
-                    <div class="bottom-right">1</div>
-                </div>
-            </div>
-            <div class="item-price">
-                <div class="item-slot">
-                    <img src="../static/assets/images/coins/coin_10.png" alt="">
-                    <div class="bottom-right">1</div>
-                </div>
-            </div>
-            <div class="item-price">
-                <div class="item-slot">
-                    <img src="../static/assets/images/coins/coin_20.png" alt="">
-                    <div class="bottom-right">64</div>
-                </div>
-            </div>
-            <div class="item-price">
-                <div class="item-slot">
-                    <img src="../static/assets/images/coins/coin_50.png" alt="">
-                    <div class="bottom-right">1</div>
-                </div>
-            </div>
-            <div class="item-price">
-                <div class="item-slot">
-                    <img src="../static/assets/images/coins/coin_100.png" alt="">
-                    <div class="bottom-right">16</div>
-                </div>
-            </div>
-            <div class="item-price">
-                <div class="item-slot">
-                    <img src="../static/assets/images/coins/coin_500.png" alt="">
-                    <div class="bottom-right">32</div>
-                </div>
-            </div>
+        <div class="method-type-test">
+            <input type="button" value="Detalles de un item" id="item">
+        </div>
+        <div class="method-type-test">
+            <input type="button" value="Lista de items filtrados" id="filtered-items">
+        </div>
+        <div class="method-type-test">
+            <input type="button" value="Lista de jugadores online y sus detalles" id="online-players">
+        </div>
+        <div class="method-type-test">
+            <input type="button" value="Lista de todos los jugadores y sus detalles" id="all-players">
+        </div>
+        <div class="method-type-test">
+            <input type="button" value="Filtrar items por una categoría en concreto" id="items-cathegory">
+        </div>
+        <div class="method-type-test">
+            <input type="button" value="Filtra items por precio" id="items-price">
+        </div>
+        <div class="method-type-test">
+            <input type="button" value="Filtra items por coincidencia en el nombre" id="items-name">
+        </div>
+        <div class="method-type-test">
+            <input type="button" value="Lista de todos los pedidos que ha realizado un cierto jugador" id="player-requests">
+        </div>
+        <div class="method-type-test">
+            <input type="button" value="Lista de items en el carro de un jugador" id="player-cart">
+        </div>
+        <div class="method-type-test">
+            <input type="button" value="Lista de las categorías de la tienda" id="store-cathegories">
+        </div>
+        <div class="method-type-test">
+            <input type="button" value="Detalles de la tienda" id="store">
+        </div>
+    </div>
+    <div class="method-type">
+        <h1>POST</h1>
+        <div class="method-type-test">
+            <input type="button" value="Añade un nuevo item para la tienda" id="store-new-item">
+        </div>
+        <div class="method-type-test">
+            <input type="button" value="Añade una nueva categoría a la tienda" id="store-new-cathegory">
+        </div>
+        <div class="method-type-test">
+            <input type="button" value="Añade un item al carrito de un jugador" id="playercart-add-item">
+        </div>
+        <div class="method-type-test">
+            <input type="button" value="Realiza la compra de un jugador" id="player-buy">
+        </div>
+    </div>
+    <div class="method-type">
+        <h1>DELETE</h1>
+        <div class="method-type-test">
+            <input type="button" value="Elimina una categoría de la tienda" id="store-delete-cathegory">
+        </div>
+        <div class="method-type-test">
+            <input type="button" value="Elimina un item del carrito de un jugador" id="playercart-delete-item">
+        </div>
+    </div>
+    <div class="method-type">
+        <h1>UPDATE</h1>
+        <div class="method-type-test">
+            <input type="button" value="Actualiza la información de un item" id="item-data-update">
+        </div>
+        <div class="method-type-test">
+            <input type="button" value="Actualiza la información de la tienda" id="store-data-update">
+        </div>
+        <div class="method-type-test">
+            <input type="button" value="Actualiza la información de un jugador" id="player-data-update">
         </div>
     </div>
 </body>
+
 </html>
