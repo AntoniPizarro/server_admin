@@ -1,4 +1,5 @@
 from datetime import datetime
+from pprint import pprint
 
 from config import *
 from service import MC_Item, MC_Store_DB, MC_Store
@@ -104,7 +105,7 @@ ticket_items = [
     },
 ]
 
-mc_store_db.add_ticket(Ticket("test_1", "TEST", mc_store.get_name(), ticket_items, datetime(2024, 5, 8).isoformat(), {"description" : "Ticket de pruebas"}))
+mc_store_db.add_ticket(Ticket(datetime.now().isoformat(), "TEST", mc_store.get_name(), ticket_items, datetime(2024, 5, 8).isoformat(), {"description" : "Ticket de pruebas"}))
 
 # Transacción 2
 mc_store.send_item(items[0], 1)
@@ -125,14 +126,36 @@ ticket_items = [
     },
 ]
 
-mc_store_db.add_ticket(Ticket("test_1", "TEST", mc_store.get_name(), ticket_items, datetime(2024, 5, 8).isoformat(), {"description" : "Ticket de pruebas"}))
+mc_store_db.add_ticket(Ticket(datetime.now().isoformat(), "TEST", mc_store.get_name(), ticket_items, datetime(2024, 7, 1).isoformat(), {"description" : "Ticket de pruebas"}))
 
 # Definimos las fechas para buscar los tickets comprendidos entre ellas
-date_1 = datetime(2024, 5, 8)
-date_2 = datetime(2024, 6, 12)
+date_1 = datetime(2024, 7, 1)
+date_2 = datetime(2024, 7, 31)
 
 # Guardamos la lista de tickets
 tickets = mc_store_db.tickets_btween_dates(date_1, date_2)
 
-# Mostramos la lista de tickets
-print(tickets)
+# Mostramos los items que han sido comprados en ese periodo: id, precio actual y cantidad comprada
+print(len(tickets))
+if len(tickets) > 0:
+    items = []
+    for item in tickets[0].get_items():
+        item_db = mc_store_db.find_items({"id" : item["item_id"]})
+        item_obj = MC_Item(
+            item_id=item_db["id"],
+            minecraft_id=item_db["minecraft_id"],
+            name=item_db["name"],
+            description=item_db["description"],
+            price=item_db["price"],
+            image=item_db["image"],
+            supplier=item_db["supplier"],
+            labels=item_db["labels"],
+            stock=item_db["stock"],
+            unlimited_stock=item_db["unlimited_stock"],
+        )
+
+        items.append({
+            item_obj......
+        })
+
+    pprint(items)
