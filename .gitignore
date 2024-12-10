@@ -3,3 +3,4 @@
 minecraft_DATA
 web_site/static/assets/INSTALADOR/mods
 */__pycache__/*
+config/__init__.py
