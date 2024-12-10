@@ -71,7 +71,7 @@ class MC_Store_XXXX(Store):
 class MC_Item(Store_Item):
     def __init__(
         self,
-        id: str,
+        item_id: str,
         minecraft_id: str,
         name: str,
         description: str,
@@ -83,7 +83,7 @@ class MC_Item(Store_Item):
         unlimited_stock: bool = False,
     ):
         super().__init__(
-            id,
+            item_id,
             name,
             description,
             price,
@@ -108,7 +108,9 @@ class MC_Item(Store_Item):
         self.minecraft_id = new_minecraft_id
 
     def get_item_obj(self) -> dict:
-        return super().get_item_obj().update({"minecraft_id": self.get_minecraft_id()})
+        res = super().get_item_obj()
+        res.update({"minecraft_id": self.get_minecraft_id()})
+        return res
 
 
 class MC_Money:
