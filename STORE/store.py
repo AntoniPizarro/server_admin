@@ -1,5 +1,17 @@
+from datetime import datetime
+
+
 class Ticket:
-    def __init__(self, ticket_id: str, customer: str, store_name: str, items: list[dict], date: str, details: dict, money_symbology: str="♦") -> None:
+    def __init__(
+        self,
+        ticket_id: str,
+        customer: str,
+        store_name: str,
+        items: list[dict],
+        date: datetime,
+        details: dict,
+        money_symbology: str = "♦",
+    ) -> None:
         self.ticket_id = ticket_id
         self.customer = customer
         self.store_name = store_name
@@ -7,121 +19,122 @@ class Ticket:
         self.date = date
         self.details = details
         self.money_symbology = money_symbology
-    
+
     def get_ticket_id(self) -> str:
         """
         Devuelve el ID del ticket.
         """
         return self.ticket_id
-        
+
     def get_customer(self) -> str:
         """
         Devuelve el cliente del ticket.
         """
         return self.customer
-    
+
     def set_customer(self, new_customer: str) -> None:
         """
         Establece el cliente del ticket.
         """
         self.customer = new_customer
-    
+
     def get_store_name(self) -> str:
         """
         Devuelve el nombre de la tienda del ticket.
         """
         return self.store_name
-    
+
     def set_store_name(self, new_store_name: str) -> None:
         """
         Establece el nombre de la tienda del ticket.
         """
         self.store_name = new_store_name
-    
+
     def get_items(self) -> list[dict]:
         """
         Devuelve los items del ticket.
         """
         return self.items
-    
+
     def set_items(self, new_items: list[dict]) -> None:
         """
         Establece los items del ticket.
         """
         self.items = new_items
-    
-    def get_date(self) -> str:
+
+    def get_date(self) -> datetime:
         """
         Devuelve la fecha del ticket.
         """
         return self.date
-    
-    def set_date(self, new_date: str) -> None:
+
+    def set_date(self, new_date: datetime) -> None:
         """
         Establece la fecha del ticket.
         """
         self.date = new_date
-    
+
     def get_details(self) -> dict:
         """
         Devuelve los detalles del ticket.
         """
         return self.details
-    
+
     def set_details(self, new_details: dict) -> None:
         """
         Establece los nuevos detalles del ticket.
         """
         self.details = new_details
-    
+
     def get_money_symbology(self) -> dict:
         """
         Devuelve el símbolo monetario del ticket.
         """
         return self.money_symbology
-    
+
     def set_money_symbology(self, new_money_symbology: dict) -> None:
         """
         Establece el nuevo símbolo monetario del ticket.
         """
         self.money_symbology = new_money_symbology
-    
+
     def get_ticket_obj(self) -> dict:
         """
         Devuelve el ticket en forma de diccionario.
         """
         res = {
-            "customer" : self.get_customer(),
-            "store_name" : self.get_store_name(),
-            "items" : self.get_items(),
-            "date" : self.get_date(),
-            "details" : self.get_details()
+            "customer": self.get_customer(),
+            "store_name": self.get_store_name(),
+            "items": self.get_items(),
+            "date": self.get_date().isoformat(),
+            "details": self.get_details(),
         }
 
         return res
-    
+
     def __repr__(self):
-        # Preparamos la lista de items capado a 18 caracteres
-        def get_product_data(item: dict, max_chars: int=18):
+        # Preparamos la lista de items capado a 20 caracteres
+        max_chars = 20
+        def get_product_data(item: dict, max_chars: int = max_chars):
             name = item["name"]
-            count = str(item["count"])
-            price = str(item["price"])
-            total_chars = len(name) + len(count) + len(price) + len(self.get_money_symbology())
-            
-            if total_chars + '-' * (max_chars - total_chars) <= max_chars:
-                return f"{name}{'-' * (max_chars - total_chars) / 2}{count}{'-' * (max_chars - total_chars) / 2}{price}{self.get_money_symbology()}"
+            count = f"x{item["count"]}"
+            price = f"{item["price"]}"
+            total_chars = len(name) + 1 + len(count) + 1 + len(price) + len(self.get_money_symbology())
+
+            if total_chars + len("-" * (max_chars - total_chars)) <= max_chars:
+                return f"{name}{'-' * int((max_chars - total_chars) / 2)}{count}{'-' * int(((max_chars - total_chars) / 2) + (max_chars - total_chars) % 2)}{price}{self.get_money_symbology()}"
             else:
-                return f"{name}\n{count}{'-' * (max_chars - (len(count) + len(price) + len(self.get_money_symbology())))}{price}{self.get_money_symbology()}"
-        
+                return f"{name}\n{count}{'-' * (max_chars - (2 + len(count) + len(price) + len(self.get_money_symbology())))}{price}{self.get_money_symbology()}"
+
         items = ""
         for item in self.get_items():
-            items += get_product_data(item, 18) + "\n"
-        
-        res = f"""==================
+            items += get_product_data(item, max_chars) + "\n"
+
+        res = f"""{'=' * max_chars}
 {self.get_store_name()}
-==================
+{'=' * max_chars}
 {self.get_date()}
-------------------
+{'-' * max_chars}
 Cliente:
   {self.get_customer()}
 
@@ -129,10 +142,10 @@ Productos:
 {items}
 ...
 
-------------------
+{'-' * max_chars}
 Detalles:
 {self.get_details()['description']}"""
-        
+
         return res
 
     def get_ticket_obj(self) -> dict:
@@ -140,21 +153,22 @@ Detalles:
         Devuelve el ticket en forma de diccionario.
         """
         res = {
-            "id" : self.get_ticket_id(),
-            "customer" : self.get_customer(),
-            "store_name" : self.get_store_name(),
-            "items" : self.get_items(),
-            "date" : self.get_date(),
-            "details" : self.get_details(),
-            "money_symbology" : self.get_money_symbology(),
+            "id": self.get_ticket_id(),
+            "customer": self.get_customer(),
+            "store_name": self.get_store_name(),
+            "items": self.get_items(),
+            "date": self.get_date(),
+            "details": self.get_details(),
+            "money_symbology": self.get_money_symbology(),
         }
 
         return res
 
+
 class Store_Item:
     def __init__(
         self,
-        id: str,
+        item_id: str,
         name: str,
         description: str,
         price: int,
@@ -164,7 +178,7 @@ class Store_Item:
         stock: int = 0,
         unlimited_stock: bool = False,
     ) -> None:
-        self.id = id
+        self.id = item_id
         self.name = name
         self.description = description
         self.price = price
@@ -334,13 +348,14 @@ class Store_Item:
             "description": self.get_description(),
             "price": self.get_price(),
             "image": self.get_image(),
-            "supplier" : self.get_supplier(),
+            "supplier": self.get_supplier(),
             "labels": self.get_labels(),
             "stock": self.get_stock(),
             "unlimited_stock": self.is_unlimited_stock(),
         }
 
         return res
+
 
 class Store:
     def __init__(
@@ -350,8 +365,8 @@ class Store:
         owner: str,
         items: list[Store_Item],
         money: int,
-        unlimited_money: bool=True,
-        money_symbology: str="♦"
+        unlimited_money: bool = True,
+        money_symbology: str = "♦",
     ) -> None:
         self.name = name
         self.description = description
@@ -413,7 +428,9 @@ class Store:
         """
         Comprueba si la tienda tiene un item.
         """
-        return item in self.get_items() or item.get_id() in [store_item.get_id() for store_item in self.get_items()]
+        return item in self.get_items() or item.get_id() in [
+            store_item.get_id() for store_item in self.get_items()
+        ]
 
     def add_item(self, new_item: Store_Item) -> None:
         """
@@ -459,19 +476,19 @@ class Store:
         """
         return self.money
 
-    def set_money(self, new_money) -> None:
+    def set_money(self, new_money: int) -> None:
         """
         Establece el nuevo dinero que tiene la tienda
         """
         self.money = new_money
 
-    def add_money(self, money) -> None:
+    def add_money(self, money: int) -> None:
         """
         Añade dinero a la tienda.
         """
         self.money += money
 
-    def del_money(self, money) -> bool:
+    def del_money(self, money: int) -> bool:
         """
         Elimina dinero de dinero a la tienda. Devuelve False si se pretende quitar más de lo que se tiene.
         """
@@ -507,7 +524,7 @@ class Store:
 
     def send_item(self, item: Store_Item, count: int = 1) -> bool:
         """
-        Vende un item y reduce el stock. Si no hay stock, rechaza la venta.
+        La tienda vende un item y reduce el stock. Si no hay stock, rechaza la venta.
         """
         # Nos aseguramos de que queremos vender una cantidad mayor a 1
         # No tiene sentido vender 0 de algo
@@ -517,13 +534,16 @@ class Store:
 
         # Comprobamos que podemos realizar la venta de un item que tenga la tienda
         if self.find_item(item) and item.del_stock(count):
-            return self.add_money(item.get_price() * count)
+            money = item.get_price() * count
+            self.add_money(money)
+
+            return True
 
         return False
 
     def buy_item(self, item: Store_Item, count: int = 1) -> bool:
         """
-        Compra un item y aumenta el stock. Si no hay dinero, rechaza la venta.
+        La tienda compra un item y aumenta el stock. Si no hay dinero, rechaza la venta.
         """
         # Nos aseguramos de que queremos comprar una cantidad mayor a 1
         # No tiene sentido comprar 0 de algo
@@ -531,9 +551,16 @@ class Store:
             print("No se puede vender un item por una cantidad menor a 1.")
             return False
 
-        if self.find_item(item) and (self.is_unlimited_money() or self.get_money() >= item.get_price() * count) and item.add_stock(count):
-                return self.del_money(item.get_price() * count)
-        
+        if (
+            self.find_item(item)
+            and (
+                self.is_unlimited_money()
+                or self.get_money() >= item.get_price() * count
+            )
+            and item.add_stock(count)
+        ):
+            return self.del_money(item.get_price() * count)
+
         return False
 
     def get_store_obj(self) -> dict:
@@ -541,14 +568,15 @@ class Store:
         Devuelve la tienda en forma de diccionario.
         """
         res = {
-            "name" : self.get_name(),
-            "description" : self.get_description(),
-            "owner" : self.get_owner(),
-            "items" : [item.get_id() for item in self.get_items()],
-            "money" : self.get_money(),
-            "unlimited_money" : self.is_unlimited_money()
+            "name": self.get_name(),
+            "description": self.get_description(),
+            "owner": self.get_owner(),
+            "items": [item.get_id() for item in self.get_items()],
+            "money": self.get_money(),
+            "unlimited_money": self.is_unlimited_money(),
         }
 
         return res
+
 
 # Cada vez que se crea un objeto de alguna de las clases de este módulo, deben guardarse sus datos en la base de datos.
