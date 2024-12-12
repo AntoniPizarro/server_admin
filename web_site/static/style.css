@@ -2,6 +2,8 @@
     --color-1: #000485;
     --color-2: #6bbe41;
     --color-3: #7a542e;
+    --color-4: #f6ff00;
+    --color-5: #000000;
 
     --color-mc-gui-btn: #6E6E6E;
     --color-mc-gui-btn-hover: #7A84B9;
@@ -9,7 +11,20 @@
     --color-mc-gui-border-1: #A8ACA8;
     --color-mc-gui-border-2: #525451;
 
+    --color-mc-gui-entry: #000000;
+    --color-mc-gui-entry-border: #a0a0a0;
+    --color-mc-gui-entry-border-focus: #ffffff;
+
+    --color-mc-gui-range: #444444;
+    --color-mc-gui-range-border: #a0a0a0;
+    --color-mc-gui-range-border-focus: #ffffff;
+    
+    --color-mc-inventory-bg: #C6C6C6;
+    --color-mc-inventory-slot-bg: #8B8B8B;
+    
     --color-text-1: #ffffff;
+    --color-text-2: #636363;
+    --color-text-3: #dddddd;
 }
 
 @font-face {
@@ -24,9 +39,14 @@ h3 {
 }
 
 body {
-    background-color: var(--color-2);
+    /* background-color: var(--color-2); */
+    background-image: url("../static/assets/images/block/dirt.png");
+    background-size: 500px;
+    image-rendering: pixelated;
+    text-rendering: geometricPrecision;
     color: var(--color-text-1);
     font-family: mc-font;
+    font-size: small;
     padding: 0;
     margin: 0;
     background-color: var(--color-3);
@@ -34,14 +54,20 @@ body {
 
 header {
     display: grid;
-    grid-template-columns: 300px auto;
-    background-color: var(--color-2);
+    grid-template-columns: auto 70%;
+    /* background-color: var(--color-2); */
+    background-image: url("../static/assets/images/block/grass_block_side.png");
+    height: 400px;
+    background-size: 500px;
     align-items: center;
+    font-size: 50px;
+    text-shadow: var(--color-text-2);
 }
 
 header img {
     margin: 50px;
     height: 150px;
+    image-rendering: auto;
 }
 
 .content {
@@ -83,4 +109,120 @@ header img {
     border-right: 3px solid var(--color-mc-gui-border-1);
     border-top: 3px solid var(--color-mc-gui-border-2);
     border-left: 3px solid var(--color-mc-gui-border-2);
+}
+
+.mc-chekbox {
+    align-items: center;
+    justify-items: center;
+    width: 25px;
+    height: 25px;
+    background-image: url('./assets/images/GUI/checkbox.png');
+    background-size: 200%;
+    /*
+    La posición debe ser controlada desde JS.
+    Tratar solo como componente de representación
+    visual sin funcionalidad ni significado directo.
+    
+    background-position: 100% 100%;
+    
+    */
+}
+
+.mc-inventory-bg {
+    background-color: var(--color-mc-inventory-bg);
+    color: var(--color-text-2);
+    border-radius: 3px;
+}
+
+.mc-chekbox-active {
+    background-position: 100% 100%;
+}
+
+.mc-chekbox-deactive {
+    background-position: 100% 0%;
+}
+
+.mc-entry {
+    display: grid;
+    grid-template-rows: 23px auto;
+    width: 100%;
+    height: 55px;
+    margin-bottom: 20px;
+}
+
+.mc-entry label {
+    font-size: large;
+    padding-left: 2px;
+}
+
+.mc-entry input[type=text] {
+    border: 2px solid var(--color-mc-gui-entry-border);
+    color: var(--color-text-3);
+    font-family: mc-font;
+    font-size: small;
+    background-color: var(--color-mc-gui-entry);
+}
+
+.mc-entry input[type=text]:focus {
+    border-color: var(--color-mc-gui-entry-border-focus);
+    outline: none;
+}
+
+.mc-range {
+    height: 32px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.mc-range * {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.mc-range input[type=range] {
+    appearance: none;
+    background-color: var(--color-mc-gui-range);
+    height: 100%;
+    border: 1px solid var(--color-mc-gui-range-border);
+}
+
+.mc-range input[type=range]::-webkit-slider-thumb {
+    appearance: none;
+    display: block;
+    height: 30px;
+    width: 15px;
+    border-top: 2px solid var(--color-mc-gui-border-1);
+    border-left: 2px solid var(--color-mc-gui-border-1);
+    border-bottom: 2px solid var(--color-mc-gui-border-2);
+    border-right: 2px solid var(--color-mc-gui-border-2);
+    background-color: var(--color-mc-gui-btn);
+}
+
+.mc-range input[type=range]:focus::-webkit-slider-thumb {
+    border: 2px solid var(--color-mc-gui-range-border-focus);
+}
+
+.mc-range input[type=range]::-moc-slider-thumb {
+    appearance: none;
+    display: block;
+    height: 30px;
+    width: 15px;
+    border-top: 2px solid var(--color-mc-gui-border-1);
+    border-left: 2px solid var(--color-mc-gui-border-1);
+    border-bottom: 2px solid var(--color-mc-gui-border-2);
+    border-right: 2px solid var(--color-mc-gui-border-2);
+    background-color: var(--color-mc-gui-btn);
+}
+
+.mc-range input[type=range]:focus::-moc-slider-thumb {
+    border: 2px solid var(--color-mc-gui-range-border-focus);
+}
+
+.mc-range label {
+    color: var(--color-text-1);
+    font-size: larger;
+    text-align: center;
+    transform: translate(0, 60%);
+    pointer-events: none;
 }
