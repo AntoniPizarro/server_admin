@@ -21,21 +21,51 @@
     </header>
     <div class="content">
         <div class="store">
-            <div class="store-section" id="store-section-cathegories">
-                <p>Sección de categorias</p>
+            <div class="store-section mc-inventory-bg" id="store-section-cathegories">
+                <div class="mc-button cathegory" id="cathegory-food">
+                    <img src="../static/assets/images/items/apple.png" alt="Manzana" class="cathegory-img">
+                    <p class="cathegory-name">Alimentos</p>
+                    <div class="mc-chekbox mc-chekbox-active"></div>
+                </div>
+                <div class="mc-button cathegory" id="cathegory-tools">
+                    <img src="../static/assets/images/items/iron_axe.png" alt="Hacha de hierro" class="cathegory-img">
+                    <p class="cathegory-name">Herramientas</p>
+                    <div class="mc-chekbox mc-chekbox-deactive"></div>
+                </div>
+                <div class="mc-button cathegory" id="cathegory-tools">
+                    <img src="../static/assets/images/items/redstone.png" alt="Polvo de redstone" class="cathegory-img">
+                    <p class="cathegory-name">Redstone</p>
+                    <div class="mc-chekbox mc-chekbox-active"></div>
+                </div>
+                <div class="mc-button cathegory" id="cathegory-tools">
+                    <img src="../static/assets/images/items/emerald.png" alt="Esmeralda" class="cathegory-img">
+                    <p class="cathegory-name">Minerales</p>
+                    <div class="mc-chekbox mc-chekbox-deactive"></div>
+                </div>
             </div>
-            <div class="store-section" id="store-section-filter">
-                <p>Sección de filtros</p>
+            <div class="store-section mc-inventory-bg" id="store-section-filter">
+                <div class="mc-entry">
+                    <label for="filter-name">Nombre del producto</label>
+                    <input type="text" name="filter-name" id="filter-name" autocomplete="off">
+                </div>
+                <div class="mc-range">
+                    <input type="range" name="filter-min-price" id="filter-min-price" min="0">
+                    <label for="filter-min-price">Precio mínimo: 87 §</label>
+                </div>
+                <div class="mc-range">
+                    <input type="range" name="filter-max-price" id="filter-max-price" min="0">
+                    <label for="filter-max-price">Precio máximo: 87 §</label>
+                </div>
             </div>
             <div class="store-section" id="store-section-items">
-                <div class="item">
+                <div class="item mc-inventory-bg">
                     <div class="item-icons">
                         <div class="item-icon">
-                            <img src="../static/assets/images/diamond.png" alt="">
+                            <img src="../static/assets/images/items/diamond.png" alt="">
                             <div class="item-ammount">1</div>
                         </div>
                         <div class="item-icon">
-                            <img src="../static/assets/images/apple.png" alt="">
+                            <img src="../static/assets/images/items/apple.png" alt="">
                             <div class="item-ammount">10</div>
                         </div>
                     </div>
@@ -47,10 +77,10 @@
                         <input class="mc-button" type="button" value="Añadir al carro">
                     </div>
                 </div>
-                <div class="item">
+                <div class="item mc-inventory-bg">
                     <div class="item-icons">
                         <div class="item-icon">
-                            <img src="../static/assets/images/diamond.png" alt="">
+                            <img src="../static/assets/images/items/diamond.png" alt="">
                             <div class="item-ammount">5</div>
                         </div>
                     </div>
@@ -58,9 +88,12 @@
                         <p class="item-data-name">Diamantes x5</p>
                         <h3 class="item-data-price">300 §</h3>
                     </div>
+                    <div class="item-actions">
+                        <input class="mc-button" type="button" value="Añadir al carro">
+                    </div>
                 </div>
             </div>
-            <div class="store-section" id="store-section-top-sales">
+            <div class="store-section mc-inventory-bg" id="store-section-top-sales">
                 <p>Sección de lo más vendido</p>
             </div>
         </div>
