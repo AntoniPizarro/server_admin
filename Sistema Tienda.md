@@ -13,6 +13,7 @@ Pasos:
 3. Se cargará la información del usuario: dinero en la cuenta, otras compras, inventario actual...
 4. Añadirá los items que desea comprar a la cesta.
 5. Antes de realizar la compra se le enviará un segundo código de confirmación antes de comprar.
-6. Aquí puede suceder una de dos cosas (por decidir)
+6. Aquí pueden suceder una de varias cosas (por decidir)
     - El usuario recibirá los items directamente en el inventario.
     - El usuario recibirá un "ticket" para invocar un cofre que caiga desde arriba.
+    - El bloque en el que se encuentra el usuario se convierte en el cofre con el contenido que ha comprado. Este bloque debería ser aire, por lo que debe comprobarse que lo es.
