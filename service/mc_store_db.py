@@ -26,6 +26,16 @@ class MC_Store_DB(DB):
         """
         self.add(ITEM_TABLE, item.get_item_obj())
     
+    def find_item(self, query: dict=None):
+        """
+        Devuelve un único items de la base de datos según una consulta. En caso de existir más de uno, devuelve el primero. Devuelve None si no existe.
+        """
+        items = self.get(table=ITEM_TABLE, query=query)
+        if items:
+            return items[0]
+        else:
+            return None
+    
     def find_items(self, query: dict=None):
         """
         Devuelve registros de items de la base de datos según una consulta.

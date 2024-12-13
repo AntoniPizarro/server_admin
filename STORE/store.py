@@ -171,6 +171,7 @@ class Store_Item:
         item_id: str,
         name: str,
         description: str,
+        base_price: int,
         price: int,
         image: str,
         supplier: str,
@@ -181,6 +182,7 @@ class Store_Item:
         self.id = item_id
         self.name = name
         self.description = description
+        self.base_price = base_price
         self.price = price
         self.image = image
         self.supplier = supplier
@@ -218,6 +220,22 @@ class Store_Item:
         """
         self.description = new_description
 
+    def get_base_price(self) -> int:
+        """
+        Devuelve el precio base del item.
+        """
+        return self.base_price
+
+    def set_base_price(self, new_base_price: int) -> None:
+        """
+        Establece el nuevo precio base del item.
+        """
+        # Por lo visto, Python acepta otros valores númericos aunque especifiques en tipo
+        if type(new_base_price) != int:
+            new_base_price = int(new_base_price)
+            
+        self.base_price = new_base_price
+
     def get_price(self) -> int:
         """
         Devuelve el precio del item.
@@ -228,6 +246,10 @@ class Store_Item:
         """
         Establece el nuevo precio del item.
         """
+        # Por lo visto, Python acepta otros valores númericos aunque especifiques en tipo
+        if type(new_price) != int:
+            new_price = int(new_price)
+
         self.price = new_price
 
     def get_image(self) -> str:
@@ -346,6 +368,7 @@ class Store_Item:
             "id": self.get_id(),
             "name": self.get_name(),
             "description": self.get_description(),
+            "base_price": self.get_base_price(),
             "price": self.get_price(),
             "image": self.get_image(),
             "supplier": self.get_supplier(),
@@ -423,6 +446,16 @@ class Store:
         Establece los nuevos items de la tienda.
         """
         self.items = new_items
+    
+    def get_item(self, item_id: str):
+        """
+        Devuelve un item que tenga la tienda.
+        """
+        for item in self.get_items():
+            if item.get_id() == item_id:
+                return item
+            
+        return None
 
     def find_item(self, item: Store_Item) -> bool:
         """
