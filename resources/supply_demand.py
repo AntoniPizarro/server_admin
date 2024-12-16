@@ -1,8 +1,6 @@
 from random import randint
 
-from service import MC_Item
-
-def apply_supply_demand(item: MC_Item, purchases_count: int, sales_count: int, max_price_percentage: float=5000, min_price_percentage: float=2, variance: float=5):
+def apply_supply_demand(item, purchases_count: int, sales_count: int, max_price_percentage: float=5000, min_price_percentage: float=2, variance: float=5):
     """
     Cálculo de los precios para generar un sistema de oferta y demanda.
 
