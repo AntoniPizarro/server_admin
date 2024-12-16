@@ -1,6 +1,6 @@
 from datetime import datetime
 from pprint import pprint
-from random import randint
+from random import randint, shuffle
 
 from config import *
 from service import MC_Item, MC_Store_DB, MC_Store
@@ -334,6 +334,7 @@ def random_transactions(num_transactions: int):
             ticket_type = "test"
         
         items_copy = items.copy()
+        shuffle(items_copy)
         num_items = randint(1, len(items_copy))
         ticket_items = []
         for j in range(num_items):
