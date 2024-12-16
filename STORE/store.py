@@ -164,6 +164,15 @@ Detalles:
 
         return res
 
+    @staticmethod
+    def get_types() -> dict:
+        """
+        Devuelve una lista con los tipos disponibles.
+        """
+        return [
+            "sales",
+            "purchases"
+        ]
 
 class Store_Item:
     def __init__(
