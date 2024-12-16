@@ -117,8 +117,8 @@ class Ticket:
         max_chars = 20
         def get_product_data(item: dict, max_chars: int = max_chars):
             name = item["name"]
-            count = f"x{item["count"]}"
-            price = f"{item["price"]}"
+            count = f"x{item['count']}"
+            price = f"{item['price']}"
             total_chars = len(name) + 1 + len(count) + 1 + len(price) + len(self.get_money_symbology())
 
             if total_chars + len("-" * (max_chars - total_chars)) <= max_chars:
