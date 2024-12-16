@@ -326,5 +326,27 @@ max_date = datetime(2025, 12, 31).toordinal()
 # Generamos transacciones de compra de los items
 def random_transactions(num_transactions: int):
     print("Reformular función. Utilizar el método 'send_item()' y 'buy_item()'")
+    for i in range(num_transactions):
+        ticket_types = Ticket.get_types()
+        if ticket_types:
+            ticket_type = ticket_types[randint(0, len(ticket_types) - 1)]
+        else:
+            ticket_type = "test"
+        
+        items_copy = items.copy()
+        num_items = randint(1, len(items_copy))
+        ticket_items = []
+        for j in range(num_items):
+            ticket_items.append(items_copy.pop()) # Pendiente de desarrollar desde este punto
+        
+        ticket = Ticket(
+            ticket_id=datetime.now().isoformat(),
+            customer=f"Test_{i}",
+            store_name=mc_store.get_name(),
+            items=ticket_items,
+            date=datetime.now(),
+            details={"description" : "Ticket de pruebas", "type" : "purchases"}, # "type" : "sales"
+            money_symbology="€",
+        )
 
 random_transactions(1000)
