@@ -3,3 +3,4 @@ from .NBT_funcs import *
 from .minecraft_content import *
 from .funcs import *
 from .mc_funcs import generate_written_book
+from .supply_demand import apply_supply_demand

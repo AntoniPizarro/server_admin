@@ -5,6 +5,10 @@ from random import randint
 from config import *
 from service import MC_Item, MC_Store_DB, MC_Store
 from STORE import Ticket
+from resources import apply_supply_demand
+
+# Constante de stock ilimitado
+UNLIMITED_STOCK = True
 
 # Instanciamos la tienda
 mc_store = MC_Store(
@@ -33,7 +37,7 @@ items = [
         image="image_test_6",
         supplier=mc_store.get_name(),
         labels=["herramienta", "herramientas", "metal", "hierro", "palo"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_2",
@@ -45,7 +49,7 @@ items = [
         image="image_test_2",
         supplier=mc_store.get_name(),
         labels=["fruta", "alimentacion", "alimento", "alimentos"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_3",
@@ -57,7 +61,7 @@ items = [
         image="image_test_3",
         supplier=mc_store.get_name(),
         labels=["minerales", "mina", "gema", "gemas", "mineral"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_4",
@@ -69,7 +73,7 @@ items = [
         image="image_test_4",
         supplier=mc_store.get_name(),
         labels=["teletransportacion", "teletransporte", "poder", "magia"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_5",
@@ -81,7 +85,7 @@ items = [
         image="image_test_5",
         supplier=mc_store.get_name(),
         labels=["herramienta", "herramientas", "madera", "pico"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_6",
@@ -93,7 +97,7 @@ items = [
         image="image_test_1",
         supplier=mc_store.get_name(),
         labels=["arma", "armas", "piedra", "espada"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_7",
@@ -105,7 +109,7 @@ items = [
         image="image_test_7",
         supplier=mc_store.get_name(),
         labels=["comida", "alimento", "alimentos", "oro", "manzana"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_8",
@@ -117,7 +121,7 @@ items = [
         image="image_test_8",
         supplier=mc_store.get_name(),
         labels=["arma", "armas", "diamante", "espada"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_9",
@@ -129,7 +133,7 @@ items = [
         image="image_test_9",
         supplier=mc_store.get_name(),
         labels=["arma", "armas", "distancia", "flecha", "flechas"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_10",
@@ -141,7 +145,7 @@ items = [
         image="image_test_10",
         supplier=mc_store.get_name(),
         labels=["material", "materiales", "metal", "hierro", "construccion"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_11",
@@ -153,7 +157,7 @@ items = [
         image="image_test_11",
         supplier=mc_store.get_name(),
         labels=["gema", "gemas", "mineral", "minerales", "diamante"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_12",
@@ -165,7 +169,7 @@ items = [
         image="image_test_12",
         supplier=mc_store.get_name(),
         labels=["portal", "ender", "magia", "poder"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_13",
@@ -177,7 +181,7 @@ items = [
         image="image_test_13",
         supplier=mc_store.get_name(),
         labels=["herramienta", "herramientas", "oro", "pico"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_14",
@@ -189,7 +193,7 @@ items = [
         image="image_test_14",
         supplier=mc_store.get_name(),
         labels=["pocion", "pociones", "magia", "efecto", "efectos"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_15",
@@ -201,7 +205,7 @@ items = [
         image="image_test_15",
         supplier=mc_store.get_name(),
         labels=["armadura", "proteccion", "cuero", "casco"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_16",
@@ -213,7 +217,7 @@ items = [
         image="image_test_16",
         supplier=mc_store.get_name(),
         labels=["arma", "armas", "metal", "hierro", "espada"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_17",
@@ -225,7 +229,7 @@ items = [
         image="image_test_17",
         supplier=mc_store.get_name(),
         labels=["herramienta", "herramientas", "diamante", "pico"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_18",
@@ -237,7 +241,7 @@ items = [
         image="image_test_18",
         supplier=mc_store.get_name(),
         labels=["arma", "armas", "oro", "espada"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_19",
@@ -249,7 +253,7 @@ items = [
         image="image_test_19",
         supplier=mc_store.get_name(),
         labels=["herramienta", "herramientas", "piedra", "hacha"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_20",
@@ -261,7 +265,7 @@ items = [
         image="image_test_20",
         supplier=mc_store.get_name(),
         labels=["arma", "armas", "madera", "espada"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_21",
@@ -273,7 +277,7 @@ items = [
         image="image_test_21",
         supplier=mc_store.get_name(),
         labels=["herramienta", "herramientas", "metal", "hierro", "pico"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_22",
@@ -285,7 +289,7 @@ items = [
         image="image_test_22",
         supplier=mc_store.get_name(),
         labels=["herramienta", "herramientas", "madera", "hacha"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_23",
@@ -297,7 +301,7 @@ items = [
         image="image_test_23",
         supplier=mc_store.get_name(),
         labels=["herramienta", "herramientas", "piedra", "pala"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
     MC_Item(
         item_id="test_24",
@@ -309,7 +313,7 @@ items = [
         image="image_test_24",
         supplier=mc_store.get_name(),
         labels=["herramienta", "herramientas", "metal", "hierro", "pala"],
-        unlimited_stock=True,
+        unlimited_stock=UNLIMITED_STOCK,
     ),
 ]
 mc_store.add_items(items)
@@ -319,137 +323,8 @@ for item in items:
 min_date = datetime(2023, 1, 1).toordinal()
 max_date = datetime(2025, 12, 31).toordinal()
 
-
 # Generamos transacciones de compra de los items
 def random_transactions(num_transactions: int):
-    for i in range(num_transactions):
-        ticket_items = []
-        items_copy = items.copy()
-        for j in range(randint(1, len(items_copy))):
-            item_index = randint(0, len(items_copy) - 1)
-
-            item = items_copy.pop(item_index)
-            ticket_items.append(
-                {
-                    "item_id": item.get_id(),
-                    "name": item.get_name(),
-                    "count": randint(1, 128),
-                    "price": item.get_price(),
-                }
-            )
-
-        mc_store_db.add_ticket(
-            Ticket(
-                datetime.now().isoformat(),
-                "TEST",
-                mc_store.get_name(),
-                ticket_items,
-                datetime.fromordinal(randint(min_date, max_date)).isoformat(),
-                {"description": "Ticket de pruebas"},
-            )
-        )
-
+    print("Reformular función. Utilizar el método 'send_item()' y 'buy_item()'")
 
 random_transactions(1000)
-
-# Definimos las fechas para buscar los tickets comprendidos entre ellas
-date_1 = datetime(2024, 7, 6)
-date_2 = datetime(2024, 7, 7)
-
-# Guardamos la lista de tickets
-tickets = mc_store_db.tickets_btween_dates(date_1, date_2)
-
-# Mostramos los items que han sido comprados en ese periodo: id, precio actual y cantidad comprada
-distinct_items = {}
-for ticket in tickets:
-    for item in ticket.get_items():
-        item_db = mc_store_db.find_items({"id": item["item_id"]})[0]
-        if item_db:
-            item_obj = mc_store.get_item(item_db["id"])
-            
-            if not item_obj:
-                continue
-
-            if item_obj.get_id() in distinct_items.keys():
-                distinct_items[item_db["id"]]["count"] += item["count"]
-            else:
-                distinct_items[item_db["id"]] = {
-                    "count" : item["count"],
-                    "minecraft_id" : item_obj.get_minecraft_id(),
-                    "price" : item_obj.get_price()
-                }
-
-def apply_supply_demand(item: MC_Item, purchases_count: int, sales_count: int, max_price_percentage: float=5000, min_price_percentage: float=2, variance: float=5):
-    """
-    Cálculo de los precios para generar un sistema de oferta y demanda.
-
-    `indice_demanda = num_compras / (num_ventas + num_compras)`
-
-    `indice_oferta = num_ventas / (num_ventas + num_compras)`
-
-    `precio_final = precio_actual * (1 + indice_demanda - indice_oferta)`
-
-    En caso de no cambiar el precio de un producto durante esos días y habiendo actividad en la tienda, se reducirá el precio en un 5% del precio base de dichos productos. Añadir un factor aleatorio para alterar muy ligeramente el precio durante ese periodo.
-
-    El precio máximo de un producto no puede superar bajo ningún concepto el 5000% del precio original y, por el contrario, un precio no puede ser inferior al 2% del precio original (los porcentajes son valores por defecto con posibilidad de ajuste personalizado).
-    """
-    if purchases_count == 0 and sales_count == 0 and purchases_count == 0:
-        demand_index = 0
-        supply_index = 0
-    else:
-        demand_index = purchases_count / (sales_count + purchases_count)
-        supply_index = sales_count / (sales_count + purchases_count)
-
-    final_price = item.get_price() + (item.get_base_price() * (1 + demand_index - supply_index)) - item.get_base_price()
-    print(demand_index, supply_index)
-
-    if int(final_price) == item.get_price():
-        item.set_price(final_price * (1 - (randint(-variance, variance)) / 100))
-    else:
-        if final_price >= item.get_base_price() * min_price_percentage / 100:
-            item.set_price(final_price)
-        else:
-            item.set_price(item.get_base_price() * min_price_percentage / 100)
-
-        if final_price <= item.get_base_price() * max_price_percentage / 100:
-            item.set_price(final_price)
-        else:
-            item.set_price(item.get_base_price() * min_price_percentage / 100)
-
-print("=======================")
-print(f"ITEMS COMPRADOS entre {date_1} y {date_2}")
-for item_id in distinct_items:
-    item_db = mc_store_db.find_item({"id": item_id})
-    if not item_db:
-        print(f"¡¡¡ ID INEXISTENTE !!! -> {item_id}")
-        continue
-
-    item = mc_store.get_item(item_id)
-
-    apply_supply_demand(item, distinct_items[item_db["id"]]["count"], 0)
-
-    print(
-        {
-            "item_id": item_id,
-            "minecraft_id": item.get_minecraft_id(),
-            "base_price": item.get_base_price(),
-            "price": item.get_price(),
-            "count": distinct_items[item_db["id"]]["count"],
-        }
-    )
-
-print("=======================")
-print(f"ITEMS NO TRAMITADOS entre {date_1} y {date_2}")
-for item in items:
-    if item.get_id() not in distinct_items:
-        
-        apply_supply_demand(item, 0, 0)
-
-        print(
-            {
-                "item_id": item.get_id(),
-                "minecraft_id": item.get_minecraft_id(),
-                "base_price": item.get_base_price(),
-                "price": item.get_price(),
-            }
-        )
