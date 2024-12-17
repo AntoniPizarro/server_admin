@@ -1,6 +1,8 @@
 from random import randint
 
-def apply_supply_demand(item, purchases_count: int, sales_count: int, max_price_percentage: float=5000, min_price_percentage: float=2, variance: float=5):
+from config import MIN_PRICE_PERCENTAGE, MAX_PRICE_PERCENTAGE
+
+def apply_supply_demand_unlimited_stock(item, purchases_count: int, sales_count: int, max_price_percentage: float=MAX_PRICE_PERCENTAGE, min_price_percentage: float=MIN_PRICE_PERCENTAGE, variance: float=5):
     """
     Cálculo de los precios para generar un sistema de oferta y demanda.
 
@@ -32,13 +34,13 @@ def apply_supply_demand(item, purchases_count: int, sales_count: int, max_price_
         item.set_price(final_price * (1 - (randint(-variance, variance)) / 100))
     else:
         # Comprobamos si el precio es superior o no al precio máximo
-        if final_price >= item.get_base_price() * min_price_percentage / 100:
-            item.set_price(final_price)
-        else:
-            item.set_price(item.get_base_price() * min_price_percentage / 100)
-
+        if final_price >= item.get_base_price() * max_price_percentage / 100:
+            final_price = item.get_base_price() * max_price_percentage / 100
         # Comprobamos si el precio es superior o no al precio mínimo
-        if final_price <= item.get_base_price() * max_price_percentage / 100:
-            item.set_price(final_price)
-        else:
-            item.set_price(item.get_base_price() * min_price_percentage / 100)
+        elif final_price <= item.get_base_price() * min_price_percentage / 100:
+            final_price = item.get_base_price() * min_price_percentage / 100
+        
+        item.set_price(final_price)
+    
+    if item.get_price() <= 0:
+        item.set_price(1)
