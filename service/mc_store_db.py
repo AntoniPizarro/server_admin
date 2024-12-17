@@ -2,7 +2,7 @@ from datetime import datetime
 
 from .db import Data_Base as DB
 from .minecraft_store import MC_Item, Ticket, Store
-from config import STORE_TABLE, ITEM_TABLE, TICKET_TABLE
+from config import STORE_TABLE, ITEM_TABLE, TICKET_TABLE, CATHEGORIES_TABLE
 
 class MC_Store_DB(DB):
     def __init__(self, host):
@@ -84,3 +84,30 @@ class MC_Store_DB(DB):
                 res.append(ticket_obj)
 
         return res
+
+    def get_cathegories(self, query: dict = None):
+        """
+        Devuelve las categorías de base de datos.
+        """
+        return self.get(table=CATHEGORIES_TABLE, query=query)
+
+    def add_cathegory(self, new_cathegory: str):
+        """
+        Añade una nueva categoría a la base de datos.
+        """
+        if not self.get_cathegories(query={"name" : new_cathegory}):
+            return self.add(table=CATHEGORIES_TABLE, document={"name" : new_cathegory})
+        
+        return False
+
+    def del_cathegory(self, cathegory_name: str):
+        """
+        Elimina una categoría de la base de datos.
+        """
+        return self.delete(table=CATHEGORIES_TABLE, query={"name" : cathegory_name})
+
+    def upd_cathegory(self, old_cathegory_name: str, new_cathegory_name: str):
+        """
+        Actualiza una categoría de la base de datos.
+        """
+        return self.update(table=CATHEGORIES_TABLE, query={"name" : old_cathegory_name}, new_values={"name" : new_cathegory_name})

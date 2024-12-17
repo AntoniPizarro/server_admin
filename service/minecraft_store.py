@@ -109,10 +109,85 @@ class MC_Item(Store_Item):
         """
         self.minecraft_id = new_minecraft_id
 
-    def get_item_obj(self) -> dict:
-        res = super().get_item_obj()
-        res.update({"minecraft_id": self.get_minecraft_id()})
+    def get_item_obj(self, includes: list=None, discarts: list=None) -> dict:
+        """
+        Devuelve el item en forma de diccionario.
+        """
+        if discarts == None:
+            discarts = []
+        
+        if includes == None:
+            includes = []
+
+        res = {
+            "id": self.get_id(),
+            "name": self.get_name(),
+            "minecraft_id": self.get_minecraft_id(),
+            "description": self.get_description(),
+            "base_price": self.get_base_price(),
+            "price": self.get_price(),
+            "image": self.get_image(),
+            "supplier": self.get_supplier(),
+            "labels": self.get_labels(),
+            "stock": self.get_stock(),
+            "unlimited_stock": self.is_unlimited_stock(),
+        }
+
+        keys_to_del = []
+        # Eliminamos aquellas claves que no se incluyan en la salida
+        if len(includes) > 0:
+            for include in res.keys():
+                if include not in includes:
+                    keys_to_del.append(include)
+
+        # Eliminamos aquellas claves que se descartan de la salida
+        if len(discarts) > 0:
+            for discart in discarts:
+                if discart in res.keys():
+                    keys_to_del.append(discart)
+        
+        for key in keys_to_del:
+            del res[key]
+
         return res
+
+    @staticmethod
+    def from_item_data(data: dict):
+        """
+        Devuelve un item con la información a partir de un diccionario.
+        Es la acción contraria a 'get_item_obj'.
+        """
+        if sorted(
+            [
+                "id",
+                "minecraft_id",
+                "name",
+                "description",
+                "base_price",
+                "price",
+                "image",
+                "supplier",
+                "labels",
+                "stock",
+                "unlimited_stock",
+            ]
+        ) == sorted(list(data.keys())):
+            return MC_Item(
+                item_id=data["id"],
+                minecraft_id=data["minecraft_id"],
+                name=data["name"],
+                description=data["description"],
+                base_price=data["base_price"],
+                price=data["price"],
+                image=data["image"],
+                supplier=data["supplier"],
+                labels=data["labels"],
+                stock=data["stock"],
+                unlimited_stock=data["unlimited_stock"],
+            )
+        else:
+            print("Datos para crear un item incorrectos.")
+            return None
 
 
 class MC_Money:
@@ -226,7 +301,7 @@ class MC_Store(Store):
         money,
         unlimited_money=True,
         money_symbology=MONEY_SYMBOL,
-        rcon: RCON=None
+        rcon: RCON = None,
     ):
         super().__init__(
             name, description, owner, items, money, unlimited_money, money_symbology

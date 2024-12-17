@@ -5,18 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minazon</title>
-    <!-- <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/logo.ico') }}" type="image/x-icon"> -->
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='store.css') }}"> -->
-    <link rel="shortcut icon" href="../static/assets/images/logo.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../static/style.css">
-    <link rel="stylesheet" href="../static/store.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/logo.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='store.css') }}">
+    <!-- <link rel="shortcut icon" href="../static/assets/images/logo.ico" type="image/x-icon"> -->
+    <!-- <link rel="stylesheet" href="../static/style.css"> -->
+    <!-- <link rel="stylesheet" href="../static/store.css"> -->
 </head>
 
 <body>
     <header>
-        <!-- <img src="{{ url_for('static', filename='assets/images/logo.png') }}" alt="Logo"> -->
-        <img src="../static/assets/images/logo.png" alt="Logo">
+        <img src="{{ url_for('static', filename='assets/images/logo.png') }}" alt="Logo">
+        <!-- <img src="../static/assets/images/logo.png" alt="Logo"> -->
         <h1>Minazon</h1>
     </header>
     <div class="content">
@@ -98,6 +98,7 @@
             </div>
         </div>
     </div>
+    <script type="module" src="{{ url_for('static', filename='javascript/store.js') }}"></script>
 </body>
 
 </html>

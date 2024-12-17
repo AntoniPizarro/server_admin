@@ -115,11 +115,19 @@ class Ticket:
     def __repr__(self):
         # Preparamos la lista de items capado a 20 caracteres
         max_chars = 20
+
         def get_product_data(item: dict, max_chars: int = max_chars):
             name = item["name"]
             count = f"x{item['count']}"
             price = f"{item['price']}"
-            total_chars = len(name) + 1 + len(count) + 1 + len(price) + len(self.get_money_symbology())
+            total_chars = (
+                len(name)
+                + 1
+                + len(count)
+                + 1
+                + len(price)
+                + len(self.get_money_symbology())
+            )
 
             if total_chars + len("-" * (max_chars - total_chars)) <= max_chars:
                 return f"{name}{'-' * int((max_chars - total_chars) / 2)}{count}{'-' * int(((max_chars - total_chars) / 2) + (max_chars - total_chars) % 2)}{price}{self.get_money_symbology()}"
@@ -157,7 +165,7 @@ Detalles:
             "customer": self.get_customer(),
             "store_name": self.get_store_name(),
             "items": self.get_items(),
-            "date": self.get_date(),
+            "date": self.get_date().isoformat(),
             "details": self.get_details(),
             "money_symbology": self.get_money_symbology(),
         }
@@ -169,10 +177,8 @@ Detalles:
         """
         Devuelve una lista con los tipos disponibles.
         """
-        return [
-            "sales",
-            "purchases"
-        ]
+        return ["sales", "purchases"]
+
 
 class Store_Item:
     def __init__(
@@ -242,7 +248,7 @@ class Store_Item:
         # Por lo visto, Python acepta otros valores númericos aunque especifiques en tipo
         if type(new_base_price) != int:
             new_base_price = int(new_base_price)
-            
+
         self.base_price = new_base_price
 
     def get_price(self) -> int:
@@ -369,10 +375,16 @@ class Store_Item:
         """
         self.unlimited_stock = new_unlimited_stock
 
-    def get_item_obj(self) -> dict:
+    def get_item_obj(self, includes: list=None, discarts: list=None) -> dict:
         """
         Devuelve el item en forma de diccionario.
         """
+        if discarts == None:
+            discarts = []
+        
+        if includes == None:
+            includes = []
+
         res = {
             "id": self.get_id(),
             "name": self.get_name(),
@@ -385,6 +397,18 @@ class Store_Item:
             "stock": self.get_stock(),
             "unlimited_stock": self.is_unlimited_stock(),
         }
+
+        # Eliminamos aquellas claves que no se incluyan en la salida
+        if len(includes) > 0:
+            for key in res.keys():
+                if key not in includes:
+                    del res[key]
+
+        # Eliminamos aquellas claves que se descartan de la salida
+        if len(discarts) > 0:
+            for discart in discarts:
+                if discart in res.keys():
+                    del res[discart]
 
         return res
 
@@ -444,18 +468,32 @@ class Store:
         """
         self.owner = new_owner
 
-    def get_items(self) -> list[Store_Item]:
+    def get_items(self, filters: dict=None) -> list[Store_Item]:
         """
         Devuelve los items de la tienda.
         """
-        return self.items
+        if filters == None:
+            return self.items
+        
+        items = []
+        for item in self.items:
+            item_data = item.get_item_obj(list(filters.keys()))
+            for key, value in item_data.items():
+                if key == "labels":
+                    for label in filters["labels"]:
+                        if label in value and item not in items:
+                            items.append(item)
+                elif item_data[key] == filters[key] and item not in items:
+                    items.append(item)
+
+        return items
 
     def set_items(self, new_items: list[Store_Item]) -> None:
         """
         Establece los nuevos items de la tienda.
         """
         self.items = new_items
-    
+
     def get_item(self, item_id: str):
         """
         Devuelve un item que tenga la tienda.
@@ -463,7 +501,7 @@ class Store:
         for item in self.get_items():
             if item.get_id() == item_id:
                 return item
-            
+
         return None
 
     def find_item(self, item: Store_Item) -> bool:
@@ -528,13 +566,14 @@ class Store:
         """
         Añade dinero a la tienda.
         """
-        self.money += money
+        if not self.is_unlimited_money():
+            self.money += money
 
     def del_money(self, money: int) -> bool:
         """
         Elimina dinero de dinero a la tienda. Devuelve False si se pretende quitar más de lo que se tiene.
         """
-        if self.get_money() >= money:
+        if self.get_money() >= money or self.is_unlimited_money():
             self.money -= money
             return True
 
@@ -619,6 +658,46 @@ class Store:
         }
 
         return res
+
+    def process_ticket(self, ticket: Ticket):
+        """
+        Procesa un ticket según su tipo. En caso de haber un item
+        que no se puede vender o comprar, rechaza la operación.
+        """
+        process_check = True
+
+        # Iteramos sobre los items del ticket
+        for item in ticket.get_items():
+            item_obj = self.get_item(item["item_id"])
+
+            if ticket.get_details()["type"] == "purchases":
+                # Comprobamos que la tienda tiene el item
+                if not item_obj and not item_obj.is_unlimited_stock() and not item_obj.get_stock() < item["count"]:
+                    print("AAAAA", item_obj)
+                    process_check = False
+                    break
+
+        # Si todo va bién, procedemos a procesar el ticket
+        if process_check:
+            for item in ticket.get_items():
+                # Comprobamos si el ticket es de venta o compra y realizamos la operación adecuada
+                if ticket.get_details()["type"] == "purchases":
+                    item_obj = self.get_item(item["item_id"])
+                    if not self.send_item(item_obj, item["count"]):
+                        print("BBBBB")
+                        process_check = False
+                elif ticket.get_details()["type"] == "sales":
+                    item_obj = self.get_item(item["item_id"])
+                    if not self.buy_item(item_obj, item["count"]):
+                        print("CCCCC")
+                        process_check = False
+
+        if not process_check:
+            print(
+                f"Ha ocurrido algún problema durante el procesamiento del ticket con ID = {ticket.get_ticket_id()}"
+            )
+
+        return process_check
 
 
 # Cada vez que se crea un objeto de alguna de las clases de este módulo, deben guardarse sus datos en la base de datos.
