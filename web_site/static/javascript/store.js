@@ -1,5 +1,5 @@
 import { ip } from "./common.js";
-import { API_getItems } from "./REST.js";
+import { API_getItems, API_getMoneySymbol } from "./REST.js";
 
 // VARIABLES GENERALES
 var filtersElements = {
@@ -21,6 +21,11 @@ var filtersElements = {
     }
 };
 
+var minPrice = null;
+var maxPrice = null;
+
+var moneySymbol = "€";
+
 // Filtros estáticos provisionales. Deberían ser dinámicos.
 document.getElementById("cathegory-food").addEventListener("click", function () {
     toogleCheckFilter(this.id);
@@ -38,6 +43,16 @@ document.getElementById("cathegory-minerals").addEventListener("click", function
     toogleCheckFilter(this.id);
     getItems();
 });
+document.getElementById("filter-min-price").addEventListener("input", function () {
+    let value = this.value;
+    this.parentNode.querySelector("label").innerText = "Precio mínimo: " + value.toString() + moneySymbol;
+    document.getElementById("filter-max-price").min = value;
+});
+document.getElementById("filter-max-price").addEventListener("input", function () {
+    let value = this.value;
+    this.parentNode.querySelector("label").innerText = "Precio máximo: " + value.toString() + moneySymbol;
+    document.getElementById("filter-min-price").max = value;
+});
 
 window.addEventListener("load", init);
 
@@ -50,6 +65,8 @@ function init() {
 }
 
 async function getItems() {
+    await getMoneySymbol();
+    
     document.getElementById("store-section-items").innerHTML = "";
     let filters = {};
 
@@ -70,16 +87,36 @@ async function getItems() {
 
     let items = await API_getItems(ip, { "item_filters": filters })
     for (let i = 0; i < items.length; i++) {
-        let ammount = 1;
+        let ammount = 2;
         let name = items[i].name;
+        let description = items[i].description;
         let price = items[i].price;
         let image = items[i].image;
 
-        document.getElementById("store-section-items").appendChild(buildItem(ammount, name, price, image));
+        document.getElementById("store-section-items").appendChild(buildItem(ammount, name, description, price, image));
     }
+
+    document.getElementById("filter-min-price").min = minPrice;
+    document.getElementById("filter-min-price").max = maxPrice;
+
+    document.getElementById("filter-max-price").min = minPrice;
+    document.getElementById("filter-max-price").max = maxPrice;
+
+    document.getElementById("filter-min-price").value = minPrice;
+    document.getElementById("filter-max-price").value = maxPrice;
+
+    document.getElementById("filter-min-price").parentNode.querySelector("label").innerText = "Precio mínimo: " + minPrice.toString() + moneySymbol;
+    document.getElementById("filter-max-price").parentNode.querySelector("label").innerText = "Precio máximo: " + maxPrice.toString() + moneySymbol;
 }
 
-function buildItem(ammount, name, price, image) {
+function buildItem(ammount, name, description, price, image) {
+    if (minPrice == null || minPrice > price) {
+        minPrice = price;
+    }
+    if (maxPrice == null || maxPrice < price) {
+        maxPrice = price;
+    }
+
     let item = document.createElement("div");
     item.classList.add("item");
     item.classList.add("mc-inventory-bg");
@@ -102,9 +139,12 @@ function buildItem(ammount, name, price, image) {
     let itemDataName = document.createElement("p");
     itemDataName.classList.add("item-data-name");
     itemDataName.innerText = name.toString();
+    let itemDataDescription = document.createElement("p");
+    itemDataDescription.classList.add("item-data-description");
+    itemDataDescription.innerText = description.toString();
     let itemDataPrice = document.createElement("h3");
     itemDataPrice.classList.add("item-data-price");
-    itemDataPrice.innerText = price.toString() + " €";
+    itemDataPrice.innerText = price.toString() + moneySymbol;
 
     let itemActions = document.createElement("div");
     itemActions.classList.add("item-actions");
@@ -123,6 +163,9 @@ function buildItem(ammount, name, price, image) {
     itemIconsIcon.appendChild(itemIconsIconAmmount);
 
     itemData.appendChild(itemDataName);
+    if (itemDataDescription.innerText != "") {
+        itemData.appendChild(itemDataDescription);
+    }
     itemData.appendChild(itemDataPrice);
 
     itemActions.appendChild(itemActionsAdd);
@@ -152,4 +195,9 @@ function toogleCheckFilter(filterID) {
         document.getElementById(filterID).querySelector(".mc-chekbox").classList.remove(activeClass);
         document.getElementById(filterID).querySelector(".mc-chekbox").classList.add(deactiveClass);
     }
+}
+
+async function getMoneySymbol() {
+    let data = await API_getMoneySymbol(ip);
+    moneySymbol = data.symbol;
 }

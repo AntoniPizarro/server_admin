@@ -591,7 +591,7 @@ class Store:
         """
         self.unlimited_money = new_unlimited_money
 
-    def get_money_symbology(self) -> int:
+    def get_money_symbology(self) -> str:
         """
         Devuelve el símbolo monetario que tiene la tienda.
         """

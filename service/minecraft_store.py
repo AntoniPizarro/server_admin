@@ -1,15 +1,7 @@
 from STORE import *
 from . import RCON
 
-MONEY_SYMBOL = "ξ"  # ξ      &xi;    &#958;      xi
-
-# Datos de la moneda
-MONEY_MC_ID = "minecraft:emerald"
-MONEY_NAME = "Leti"
-MONEY_DESCRIPTION = "Moneda de comercio"
-MONEY_TOKEN_TAG = "money_token"
-MONEY_TOKEN = "6852146"
-
+from config import *
 
 class MC_Store_XXXX(Store):
     def __init__(self, items, sales=None):

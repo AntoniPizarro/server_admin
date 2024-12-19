@@ -33,6 +33,7 @@ mc_store = MC_Store(
     owner=STORE_OWNER,
     items=items,
     money=store_data["money"],
+    money_symbology=MONEY_SYMBOL
 )
 
 # GET
@@ -49,6 +50,13 @@ def store():
     Página de la tienda.
     '''
     return render_template("store.html")
+
+@app.route("/api/money/symbol", methods=["GET"])
+def API_money_symbol():
+    '''
+    Devuelve el símbolo de la moneda.
+    '''
+    return jsonify({"symbol" : mc_store.get_money_symbology()})
 
 #POST
 @app.route("/api/items", methods=["POST"])
