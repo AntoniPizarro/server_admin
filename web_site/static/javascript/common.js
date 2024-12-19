@@ -4,6 +4,10 @@ function test() {
     console.log("Pendiente...");
 }
 
+function goURL(url) {
+    window.location = url;
+}
+
 const ipList = [
     "10.81.66.189",
     "10.81.66.161"
@@ -26,4 +30,4 @@ if(usePort) {
     ip += ":" + port
 }
 
-export {ip, delay, test};
+export {ip, delay, test, goURL};

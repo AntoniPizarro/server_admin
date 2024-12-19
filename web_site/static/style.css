@@ -118,14 +118,6 @@ header img {
     height: 25px;
     background-image: url('./assets/images/GUI/checkbox.png');
     background-size: 200%;
-    /*
-    La posición debe ser controlada desde JS.
-    Tratar solo como componente de representación
-    visual sin funcionalidad ni significado directo.
-    
-    background-position: 100% 100%;
-    
-    */
 }
 
 .mc-inventory-bg {

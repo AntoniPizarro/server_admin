@@ -1,21 +1,76 @@
 import { ip } from "./common.js";
 import { API_getItems } from "./REST.js";
 
-window.addEventListener("load", getItems);
+// VARIABLES GENERALES
+var filtersElements = {
+    "cathegory-food": {
+        state: true,
+        label: "comida"
+    },
+    "cathegory-tools": {
+        state: false,
+        label: "herramientas"
+    },
+    "cathegory-redstone": {
+        state: false,
+        label: "redstone"
+    },
+    "cathegory-minerals": {
+        state: false,
+        label: "minerales"
+    }
+};
+
+// Filtros estáticos provisionales. Deberían ser dinámicos.
+document.getElementById("cathegory-food").addEventListener("click", function () {
+    toogleCheckFilter(this.id);
+    getItems();
+});
+document.getElementById("cathegory-tools").addEventListener("click", function () {
+    toogleCheckFilter(this.id);
+    getItems();
+});
+document.getElementById("cathegory-redstone").addEventListener("click", function () {
+    toogleCheckFilter(this.id);
+    getItems();
+});
+document.getElementById("cathegory-minerals").addEventListener("click", function () {
+    toogleCheckFilter(this.id);
+    getItems();
+});
+
+window.addEventListener("load", init);
 
 function init() {
-    let items = getItems();
-
-    for (let i = 0; i < items.length; i++) {
-        console.log(items[i]);
+    for (const [key, value] of Object.entries(filtersElements)) {
+        getFilterElement(key);
     }
+
+    getItems();
 }
 
 async function getItems() {
     document.getElementById("store-section-items").innerHTML = "";
-    let items = await API_getItems(ip, { "item_filters": {} })
+    let filters = {};
+
+    let filterLabels = [];
+    for (const [key, value] of Object.entries(filtersElements)) {
+        if (value.state) {
+            console.log(value.label);
+            filterLabels.push(value.label);
+        } else if (filterLabels.includes(value.label)) {
+            filterLabels.slice(filterLabels.indexOf(value.label), 1)
+        }
+        
+        filters["labels"] = filterLabels;
+        if (filters["labels"].length == 0) {
+            delete filters.labels;
+        }
+    }
+
+    let items = await API_getItems(ip, { "item_filters": filters })
     for (let i = 0; i < items.length; i++) {
-        let ammount = 5;
+        let ammount = 1;
         let name = items[i].name;
         let price = items[i].price;
         let image = items[i].image;
@@ -35,10 +90,12 @@ function buildItem(ammount, name, price, image) {
     let itemIconsIcon = document.createElement("div");
     itemIconsIcon.classList.add("item-icon");
     let itemIconsIconImg = document.createElement("img");
-    itemIconsIconImg.setAttribute("src", "../static/assets/images/items/" + image + ".png");
+    itemIconsIconImg.setAttribute("src", "../static/assets/images/" + image + ".png");
     let itemIconsIconAmmount = document.createElement("div");
     itemIconsIconAmmount.classList.add("item-ammount");
-    itemIconsIconAmmount.innerText = ammount.toString();
+    if (ammount > 1) {
+        itemIconsIconAmmount.innerText = ammount.toString();
+    }
 
     let itemData = document.createElement("div");
     itemData.classList.add("item-data");
@@ -71,4 +128,28 @@ function buildItem(ammount, name, price, image) {
     itemActions.appendChild(itemActionsAdd);
 
     return item;
+}
+
+function getFilterElement(filterID) {
+    let filter = document.getElementById(filterID);
+    let filterCheck = filter.querySelector(".mc-chekbox");
+
+    if (filterCheck.classList.contains("mc-chekbox-deactive")) {
+        filtersElements[filterID].state = false;
+    } else if (filterCheck.classList.contains("mc-chekbox-active")) {
+        filtersElements[filterID].state = true;
+    }
+}
+
+function toogleCheckFilter(filterID) {
+    let activeClass = "mc-chekbox-active";
+    let deactiveClass = "mc-chekbox-deactive";
+    filtersElements[filterID].state = !filtersElements[filterID].state;
+    if (filtersElements[filterID].state) {
+        document.getElementById(filterID).querySelector(".mc-chekbox").classList.remove(deactiveClass);
+        document.getElementById(filterID).querySelector(".mc-chekbox").classList.add(activeClass);
+    } else {
+        document.getElementById(filterID).querySelector(".mc-chekbox").classList.remove(activeClass);
+        document.getElementById(filterID).querySelector(".mc-chekbox").classList.add(deactiveClass);
+    }
 }
