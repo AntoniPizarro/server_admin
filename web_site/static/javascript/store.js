@@ -53,15 +53,22 @@ document.getElementById("filter-max-price").addEventListener("input", function (
     this.parentNode.querySelector("label").innerText = "Precio máximo: " + value.toString() + moneySymbol;
     document.getElementById("filter-min-price").max = value;
 });
+document.getElementById("filter-apply").addEventListener("click", getItems);
 
 window.addEventListener("load", init);
 
-function init() {
+async function init() {
     for (const [key, value] of Object.entries(filtersElements)) {
         getFilterElement(key);
     }
 
-    getItems();
+    await getItems();
+
+    document.getElementById("filter-min-price").value = minPrice;
+    document.getElementById("filter-max-price").value = maxPrice;
+
+    document.getElementById("filter-min-price").parentNode.querySelector("label").innerText = "Precio mínimo: " + document.getElementById("filter-min-price").value.toString() + moneySymbol;
+    document.getElementById("filter-max-price").parentNode.querySelector("label").innerText = "Precio máximo: " + document.getElementById("filter-max-price").value.toString() + moneySymbol;
 }
 
 async function getItems() {
@@ -85,6 +92,15 @@ async function getItems() {
         }
     }
 
+    let filterName = document.getElementById("filter-name").value;
+    if (filterName) {
+        filters["name"] = filterName;
+    }
+
+    let filterMinPrice = document.getElementById("filter-min-price").value;
+    let filterMaxPrice = document.getElementById("filter-max-price").value;
+
+    // Obtenemos los items
     let items = await API_getItems(ip, { "item_filters": filters })
     for (let i = 0; i < items.length; i++) {
         let ammount = 2;
@@ -97,16 +113,10 @@ async function getItems() {
     }
 
     document.getElementById("filter-min-price").min = minPrice;
-    document.getElementById("filter-min-price").max = maxPrice;
-
-    document.getElementById("filter-max-price").min = minPrice;
     document.getElementById("filter-max-price").max = maxPrice;
-
-    document.getElementById("filter-min-price").value = minPrice;
-    document.getElementById("filter-max-price").value = maxPrice;
-
-    document.getElementById("filter-min-price").parentNode.querySelector("label").innerText = "Precio mínimo: " + minPrice.toString() + moneySymbol;
-    document.getElementById("filter-max-price").parentNode.querySelector("label").innerText = "Precio máximo: " + maxPrice.toString() + moneySymbol;
+    
+    document.getElementById("filter-min-price").max = document.getElementById("filter-max-price").value;
+    document.getElementById("filter-max-price").min = document.getElementById("filter-min-price").value;
 }
 
 function buildItem(ammount, name, description, price, image) {
@@ -123,7 +133,7 @@ function buildItem(ammount, name, description, price, image) {
 
     let itemIcons = document.createElement("div");
     itemIcons.classList.add("item-icons");
-    // Se supone que pueden haber mas items. Por ahora solo aparecerá solo 1
+    // Se supone que pueden haber mas items. Por ahora aparecerá solo 1
     let itemIconsIcon = document.createElement("div");
     itemIconsIcon.classList.add("item-icon");
     let itemIconsIconImg = document.createElement("img");
