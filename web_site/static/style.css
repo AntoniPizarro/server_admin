@@ -96,7 +96,6 @@ header img {
     border-right: 3px solid var(--color-mc-gui-border-2);
     border-top: 3px solid var(--color-mc-gui-border-1);
     border-left: 3px solid var(--color-mc-gui-border-1);
-    margin: 10px;
 }
 
 .mc-button:hover {
@@ -164,6 +163,7 @@ header img {
     height: 32px;
     position: relative;
     margin-bottom: 20px;
+    transform: translate(-50%);
 }
 
 .mc-range * {
