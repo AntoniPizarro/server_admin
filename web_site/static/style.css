@@ -96,7 +96,6 @@ header img {
     border-right: 3px solid var(--color-mc-gui-border-2);
     border-top: 3px solid var(--color-mc-gui-border-1);
     border-left: 3px solid var(--color-mc-gui-border-1);
-    margin: 10px;
 }
 
 .mc-button:hover {
@@ -118,14 +117,6 @@ header img {
     height: 25px;
     background-image: url('./assets/images/GUI/checkbox.png');
     background-size: 200%;
-    /*
-    La posición debe ser controlada desde JS.
-    Tratar solo como componente de representación
-    visual sin funcionalidad ni significado directo.
-    
-    background-position: 100% 100%;
-    
-    */
 }
 
 .mc-inventory-bg {
@@ -172,6 +163,7 @@ header img {
     height: 32px;
     position: relative;
     margin-bottom: 20px;
+    transform: translate(-50%);
 }
 
 .mc-range * {

@@ -483,6 +483,12 @@ class Store:
                     for label in filters["labels"]:
                         if label in value and item not in items:
                             items.append(item)
+                elif key == "name" and "name" in filters.keys():
+                    if filters["name"] in item.get_name() + item.get_description():
+                        items.append(item)
+                elif key == "price" and "min_price" in filters.keys() and "max_price" in filters.keys():
+                    if item.get_price() >= filters["min_price"] or item.get_price() <= filters["max_price"]:
+                        items.append(item)
                 elif item_data[key] == filters[key] and item not in items:
                     items.append(item)
 
@@ -591,7 +597,7 @@ class Store:
         """
         self.unlimited_money = new_unlimited_money
 
-    def get_money_symbology(self) -> int:
+    def get_money_symbology(self) -> str:
         """
         Devuelve el símbolo monetario que tiene la tienda.
         """

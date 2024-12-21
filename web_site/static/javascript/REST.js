@@ -31,3 +31,7 @@ export function nombreFuncion4(ip) {
 export function API_getItems(ip, data) {
     return APIPOST(ip + '/api/items', data);
 }
+
+export function API_getMoneySymbol(ip) {
+    return APIGET(ip + '/api/money/symbol');
+}
