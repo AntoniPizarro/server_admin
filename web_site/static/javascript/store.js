@@ -4,7 +4,7 @@ import { API_getItems, API_getMoneySymbol } from "./REST.js";
 // VARIABLES GENERALES
 var filtersElements = {
     "cathegory-food": {
-        state: true,
+        state: false,
         label: "comida"
     },
     "cathegory-tools": {
@@ -80,7 +80,6 @@ async function getItems() {
     let filterLabels = [];
     for (const [key, value] of Object.entries(filtersElements)) {
         if (value.state) {
-            console.log(value.label);
             filterLabels.push(value.label);
         } else if (filterLabels.includes(value.label)) {
             filterLabels.slice(filterLabels.indexOf(value.label), 1)
@@ -100,10 +99,23 @@ async function getItems() {
     let filterMinPrice = document.getElementById("filter-min-price").value;
     let filterMaxPrice = document.getElementById("filter-max-price").value;
 
+    filters["price"] = {};
+    if (minPrice != null || minPrice != filterMinPrice) {
+        filters.price["min_price"] = parseInt(filterMinPrice);
+    }
+
+    if (maxPrice != null || maxPrice != filterMaxPrice) {
+        filters.price["max_price"] = parseInt(filterMaxPrice);
+    }
+
+    if (filters.price == {}) {
+        delete filters.price;
+    }
+
     // Obtenemos los items
     let items = await API_getItems(ip, { "item_filters": filters })
     for (let i = 0; i < items.length; i++) {
-        let ammount = 2;
+        let ammount = 1; // La cantidad ofrecida podría ser indicada por el servidor
         let name = items[i].name;
         let description = items[i].description;
         let price = items[i].price;

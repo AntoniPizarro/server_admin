@@ -475,22 +475,26 @@ class Store:
         if filters == None:
             return self.items
         
-        items = []
-        for item in self.items:
+        items = self.items.copy()
+        for item in items:
+            discarted = True
             item_data = item.get_item_obj(list(filters.keys()))
             for key, value in item_data.items():
                 if key == "labels":
                     for label in filters["labels"]:
                         if label in value and item not in items:
-                            items.append(item)
+                            discarted = False
                 elif key == "name" and "name" in filters.keys():
                     if filters["name"] in item.get_name() + item.get_description():
-                        items.append(item)
-                elif key == "price" and "min_price" in filters.keys() and "max_price" in filters.keys():
-                    if item.get_price() >= filters["min_price"] or item.get_price() <= filters["max_price"]:
-                        items.append(item)
+                        discarted = False
+                elif key == "price":
+                    if item.get_price() >= filters[key]["min_price"] and item.get_price() <= filters[key]["max_price"]:
+                        discarted = False
                 elif item_data[key] == filters[key] and item not in items:
-                    items.append(item)
+                    discarted = False
+            
+            if discarted:
+                items.remove(item)
 
         return items
 
