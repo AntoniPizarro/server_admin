@@ -470,26 +470,40 @@ class Store:
 
     def get_items(self, filters: dict=None) -> list[Store_Item]:
         """
-        Devuelve los items de la tienda.
+        Devuelve los items de la tienda. Si no hay filtros, se devuelven todos los items.
         """
         if filters == None:
             return self.items
         
+        # Creamos una copia de la lista de los items de la tienda y la recorremos
         items = self.items.copy()
-        for item in items:
+        for item in self.items:
+            # Inicializamos una variable para comprobar si se descarte cada item
             discarted = True
+            
+            # Obtenemos los datos de cada item
             item_data = item.get_item_obj(list(filters.keys()))
+
+            # Recorremos los datos del item
             for key, value in item_data.items():
+                # Filtro de [ETIQUETAS]
                 if key == "labels":
+                    # Recorremos las etiquetas indicadas en el filtro
                     for label in filters["labels"]:
+                        # Nos aseguramos de que almenos una etiqueta coincide
                         if label in value and item not in items:
                             discarted = False
+                # Filtro de [NOMBRE]
                 elif key == "name" and "name" in filters.keys():
+                    # Nos aseguramos que la palabra filtrada se encuentre en el nombre o la descripción del item
                     if filters["name"] in item.get_name() + item.get_description():
                         discarted = False
+                # Filtro de [RANGO DE PRECIOS]
                 elif key == "price":
+                    # Nos aseguramos que el precio del item se encuentre entre los rangos de precio indicados en el filtro
                     if item.get_price() >= filters[key]["min_price"] and item.get_price() <= filters[key]["max_price"]:
                         discarted = False
+                # Cualquier otro filtro
                 elif item_data[key] == filters[key] and item not in items:
                     discarted = False
             

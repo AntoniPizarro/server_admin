@@ -70,6 +70,7 @@ def API_items():
     if type(filters) != dict or len(filters.keys()) == 0:
         filters = None
     
+    print(filters)
     items = mc_store.get_items(filters)
     res = []
     for item in items:
